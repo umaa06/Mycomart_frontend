@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
+import {useRouter} from 'next/navigation';
 
 const ForgotPassword = () => {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -35,7 +37,7 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 font-sans">
+        <div className="flex bg-image items-center justify-center min-h-screen bg-gray-100 font-sans">
             <div className="form-container bg-white rounded-2xl shadow-lg p-10 max-w-md w-[90%]">
                 <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-6">
                     Forgot Your Password?
@@ -85,6 +87,10 @@ const ForgotPassword = () => {
                         <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
+                            onClick={() => {
+                                router.push('/');
+                            }
+                        }
                         >
                             Back to Login
                         </button>
