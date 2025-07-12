@@ -1,10 +1,11 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
+const BASE_URL = 'http://127.0.0.1:8080/api';
 
 export async function apiClient<T>(
     endpoint: string,
     options: RequestInit = {}
 ): Promise<T> {
-    const url = `${BASE_URL}${endpoint}`;
+    console.log(BASE_URL);
+    const url = BASE_URL + endpoint;
     const headers = {
         'Content-Type': 'application/json',
         ...options.headers,
@@ -24,6 +25,8 @@ export async function apiClient<T>(
     };
 
     try {
+        console.log("URL", url);
+        console.log("Conf", config);
         const response = await fetch(url, config);
 
         if (!response.ok) {

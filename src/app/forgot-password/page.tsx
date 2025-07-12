@@ -12,7 +12,6 @@ const ForgotPassword = () => {
         e.preventDefault();
 
         try {
-            // Replace this with your real endpoint
             const response = await fetch('/api/forgot-password', {
                 method: 'POST',
                 headers: {
