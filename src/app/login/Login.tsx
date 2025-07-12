@@ -101,7 +101,7 @@ export default function Login() {
 
           <div className="text-center text-sm">
             <a
-              href="/auth/forgot_password.php"
+              href="/src/app/forgetPassword/Forgetpassword"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
               Forgot your password?
