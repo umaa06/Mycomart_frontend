@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import loginBackground from "../../../public/mushroom.jpg";
 import Image from 'next/image';
+import "./login.css";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -115,39 +115,6 @@ export default function Login() {
           </div>
         </form>
       </div>
-
-      <style>{`
-        .input-field {
-          border: 1px solid #d1d5db;
-          border-radius: 0.5rem;
-          padding: 0.75rem 1rem;
-          width: 100%;
-          transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .input-field:focus {
-          outline: none;
-          border-color: #4f46e5;
-          box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-        .login-button {
-          background-color: #4f46e5;
-          color: #ffffff;
-          font-weight: 600;
-          padding: 0.75rem 1.5rem;
-          border-radius: 0.5rem;
-          width: 100%;
-          transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                      0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .login-button:hover {
-          background-color: #4338ca;
-          transform: translateY(-1px);
-        }
-        .login-button:active {
-          transform: translateY(0);
-        }
-      `}</style>
     </div>
   );
 };
