@@ -49,5 +49,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    width: auto;
+    height: auto;
     min-height: 100vh;
 }
