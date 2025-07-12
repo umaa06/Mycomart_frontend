@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Image from 'next/image';
 import "./login.css";
+import {authService} from '@/app/api/authService';
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -12,17 +13,10 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("/auth/process_login.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({ username, password }),
-      });
 
-      const data = await response.json();
+      const response = await authService.login({userName: username, password: password});
 
-      if (data.success) {
+      if (response.status === 200) {
         // redirect or show success message
         window.location.href = "/dashboard";
       } else {
@@ -73,7 +67,7 @@ export default function Login() {
               id="username"
               name="username"
               required
-              className="input-field"
+              className="input-field text-gray-700"
               placeholder="Enter your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -92,7 +86,7 @@ export default function Login() {
               id="password"
               name="password"
               required
-              className="input-field"
+              className="input-field text-gray-700"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
