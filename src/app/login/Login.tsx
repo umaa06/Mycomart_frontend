@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import loginBackground from "../assets/mushroom.jpg";
+import loginBackground from "../../../public/mushroom.jpg";
+import Image from 'next/image';
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -38,9 +39,11 @@ export default function Login() {
         <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-6">
           Mushroom Sales System
         </h2>
-        <img
-        src="../assets/mycomart_logo.png"
+        <Image
+        src="/mycomart_logo.png"
         alt="MYCOMART Logo"
+        width={96}
+        height={96}
         className="mx-auto mb-6 w-24 h-auto"/>
 
         <p className="text-xl font-semibold text-gray-700 text-center mb-8">
