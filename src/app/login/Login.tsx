@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from 'next/image';
 import "./login.css";
 import {authService} from '@/app/api/authService';
+import Link from 'next/link';
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -100,12 +101,12 @@ export default function Login() {
           </div>
 
           <div className="text-center text-sm">
-            <a
-              href="/src/app/forgetPassword/Forgetpassword"
+            <Link
+              href="/forgot-password"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
               Forgot your password?
-            </a>
+            </Link>
           </div>
         </form>
       </div>
