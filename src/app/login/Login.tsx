@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
+import loginBackground from "../assets/mushroom.jpg";
 
-const Login = () => {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,26 +33,15 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 font-sans">
-      <div
-      className="min-h-screen bg-cover bg-center"
-      style={{
-        backgroundImage: "url('C:\\Users\\umadi\\Desktop\\KIU\\YEAR 2\\system\\my-comart-fo\\images\\mushroom.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-  }}
->
-</div>
-
+      <div className="bg-image flex items-center justify-center min-h-screen bg-gray-100 font-sans">
       <div className="bg-white rounded-2xl shadow-lg p-10 max-w-md w-full">
         <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-6">
           Mushroom Sales System
         </h2>
         <img
-        src="/images/mycomart logo.png"
+        src="../assets/mycomart_logo.png"
         alt="MYCOMART Logo"
-        className="mx-auto mb-6 w-24 h-auto"
-/>
+        className="mx-auto mb-6 w-24 h-auto"/>
 
         <p className="text-xl font-semibold text-gray-700 text-center mb-8">
           Login to your account
@@ -158,5 +148,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;
