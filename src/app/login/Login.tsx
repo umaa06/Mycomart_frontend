@@ -20,7 +20,7 @@ export default function Login() {
         // redirect or show success message
         window.location.href = "/dashboard";
       } else {
-        setErrorMessage(data.message || "Invalid login.");
+        setErrorMessage(response.status +  "Invalid login.");
       }
     } catch (error) {
       setErrorMessage("An error occurred. Please try again.");
