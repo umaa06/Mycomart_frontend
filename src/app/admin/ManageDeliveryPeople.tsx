@@ -1,5 +1,5 @@
+'use client';
 import React, { useState, useEffect } from 'react';
-
 type DeliveryPerson = {
   delivery_person_id: string;
   user_id: string;

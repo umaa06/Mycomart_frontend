@@ -7,7 +7,7 @@ export default function Home() {
   return (
    <div>
     
-    <EditShop/>
+    <AdminDashboard/>
    </div>
   );
 }
