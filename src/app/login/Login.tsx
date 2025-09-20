@@ -4,27 +4,68 @@ import Image from 'next/image';
 import "./login.css";
 import {authService} from '@/app/api/authService';
 import Link from 'next/link';
+import {jwtDecode} from 'jwt-decode';
+import {importSPKI, jwtVerify} from 'jose';
+import {UserType} from '@/app/enums/UserType';
+import {useRouter} from 'next/navigation';
+
+function toSPKI(base64Key: string): string {
+  // insert line breaks every 64 chars
+  const formatted = base64Key.match(/.{1,64}/g)!.join("\n");
+  return `-----BEGIN PUBLIC KEY-----\n${formatted}\n-----END PUBLIC KEY-----`;
+}
 
 export default function Login() {
+
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [successMessage, setSuccessMessage] = useState("")
   const [errorMessage, setErrorMessage] = useState("");
+  const PUBLIC_KEY:string = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmcqhZSzbgO0gwQNfZKoNGZIr00fTb/FMmvjMSjETT3wk+oIXCjEhBYlDcT7RRmAw6oxGw4bDEZFhrkhY6+wdClpepC+rphGvo5n8QWCJ5TREWDhDgiOZR03H2IdNK2cVfld76sb/hRTP2HWcQ+LVwfM0JeNmzNUQA+Aqev2AXV42p2Exba2T/bD5TIXjfJwAPqjufPiooQbTQQ3oqa2tPuTpZTo076cTDPWxdQFGOtoy60Dlzhh5cPUDj65TtcDhIC4Xn98XsO8tG5tURcNFL06u66cvn+R8oMCUDMGNcCGzUDKMT/VLk/6VJ0xoxAjiAA4Gr+rqkSASdwEsxQT6wQIDAQAB";
+  const PUBLIC_KEY_PEM = toSPKI(PUBLIC_KEY);
+  function handleSuccessMessage( message: string ) {
+    setErrorMessage("");
+    setSuccessMessage(message);
+  }
+  function handleErrorMessage( message: string ) {
+    setSuccessMessage("");
+    setErrorMessage(message);
+  }
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     try {
 
-      const response = await authService.login({userName: username, password: password});
+      const response = authService.login({userName: username, password: password});
+      response.then(async res => {
+        try{
+          if (res.status === 200) {
 
-      if (response.status === 200) {
-        // redirect or show success message
-        window.location.href = "/dashboard";
-      } else {
-        setErrorMessage(response.status +  "Invalid login.");
-      }
+            // redirect or show success message
+
+            const publicKey = await importSPKI(PUBLIC_KEY_PEM, "RS256");
+            var jwtPayloadJWTVerifyResult = await jwtVerify(res.token, publicKey);
+            handleSuccessMessage("Login successful! Redirecting...");
+            // var jwtPayload = jwtDecode(res.token);
+            localStorage.setItem('token', res.token);
+            var role:UserType = jwtPayloadJWTVerifyResult.payload.role as UserType;
+            if(role === UserType.ADMIN){
+              router.push("/admin/dashboard");
+            }
+          } else {
+            handleErrorMessage("Invalid login.");
+          }
+        } catch (error) {
+          handleErrorMessage("Invalid login.");
+        }
+      }).catch(e => {
+        handleErrorMessage(e.message);
+      });
+
     } catch (error) {
-      setErrorMessage("An error occurred. Please try again.");
+      handleErrorMessage("An error occurred. Please try again.");
     }
   };
 
@@ -53,6 +94,15 @@ export default function Login() {
             <strong className="font-bold">Error! </strong>
             <span>{errorMessage}</span>
           </div>
+        )}
+        {successMessage && (
+            <div
+                className="bg-red-100 border border-green-300 text-green-600 px-4 py-3 rounded-lg mb-6"
+                role="alert"
+            >
+              <strong className="font-bold">Error! </strong>
+              <span>{successMessage}</span>
+            </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
