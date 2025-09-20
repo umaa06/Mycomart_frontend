@@ -42,8 +42,8 @@ export async function apiClient<T>(
         if (response.status === 204) {
             return null as T;
         }
-
-        return await response.json() as T;
+        console.log("Response", response);
+        return await response.body as T;
     } catch (error) {
         console.error('API call failed:', error);
         throw error;
