@@ -7,6 +7,7 @@ export async function apiClient<T>(
     console.log(BASE_URL);
     const url = BASE_URL + endpoint;
     const headers = {
+        'Authorization':'',
         'Content-Type': 'application/json',
         ...options.headers,
     };
@@ -43,7 +44,7 @@ export async function apiClient<T>(
             return null as T;
         }
         console.log("Response", response);
-        return await response.body as T;
+        return response.body as T;
     } catch (error) {
         console.error('API call failed:', error);
         throw error;
