@@ -1,4 +1,4 @@
-import { api} from '@/app/api/apiClient';
+import {api} from '@/app/api/apiClient';
 
 export const authService = {
     login: ( credential: { userName: string; password: string }) => {

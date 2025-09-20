@@ -6,7 +6,8 @@ export async function apiClient<T>(
 ): Promise<T> {
     console.log(BASE_URL);
     const url = BASE_URL + endpoint;
-    const headers: Record<string, string> = {
+    const headers = {
+        'Authorization':'',
         'Content-Type': 'application/json',
         ...(options.headers as Record<string, string>),
     };
@@ -42,7 +43,6 @@ export async function apiClient<T>(
         if (response.status === 204) {
             return null as T;
         }
-
         return await response.json() as T;
     } catch (error) {
         console.error('API call failed:', error);
