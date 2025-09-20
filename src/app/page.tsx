@@ -1,10 +1,13 @@
-import Image from "next/image";
-import Login from '@/app/login/Login';
+"use client";
+import AdminDashboard from './admin/AdminDashboard';
+import EditDeliveryPerson from './admin/EditDeliveryPerson';
+import EditShop from './admin/EditShop';
 
 export default function Home() {
   return (
    <div>
-     <Login/>
+    
+    <EditShop/>
    </div>
   );
 }

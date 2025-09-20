@@ -24,7 +24,7 @@ export default function Login() {
         setErrorMessage(response.status +  "Invalid login.");
       }
     } catch (error) {
-      setErrorMessage("An error occurred. Please try again.");
+      setErrorMessage(errorMessage);
     }
   };
 
