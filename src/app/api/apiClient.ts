@@ -1,4 +1,4 @@
-const BASE_URL = 'http://172.20.10.10:8080/api';
+const BASE_URL = 'http://127.0.0.1:8080/api';
 
 export async function apiClient<T>(
     endpoint: string,

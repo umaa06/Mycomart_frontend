@@ -349,7 +349,7 @@ const AddDeliveryPersonForm = () => {
               />
             </div>
 
-            {/* Login Credentials Section */}
+            {/* PasswordReset Credentials Section */}
             <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-4 pt-6 border-t border-gray-200">Login Credentials</h2>
             
             {/* Username and Email */}

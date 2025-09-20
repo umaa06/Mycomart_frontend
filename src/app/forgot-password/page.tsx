@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import {useRouter} from 'next/navigation';
+import {authService} from '@/app/api/authService';
 
 const ForgotPassword = () => {
     const router = useRouter();
@@ -10,25 +11,18 @@ const ForgotPassword = () => {
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+        setSuccessMessage('');
+        setErrorMessage('');
 
         try {
-            const response = await fetch('/api/forgot-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                setSuccessMessage(data.message || 'Reset link sent to your email.');
+            authService.forgotPassword({email: email}).then(response => {
+                setSuccessMessage('Reset link sent to your email.');
                 setErrorMessage('');
-            } else {
-                setErrorMessage(data.error || 'Something went wrong.');
+            }).catch(error => {
+                setErrorMessage('Something went wrong.');
                 setSuccessMessage('');
-            }
+            })
+
         } catch (error) {
             setErrorMessage('Server error. Please try again later.');
             setSuccessMessage('');

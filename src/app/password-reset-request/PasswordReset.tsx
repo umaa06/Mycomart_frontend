@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from 'next/image';
-import "./login.css";
+import "./passwordReset.css";
 import {authService} from '@/app/api/authService';
 import Link from 'next/link';
 import {jwtDecode} from 'jwt-decode';
@@ -15,10 +15,9 @@ function toSPKI(base64Key: string): string {
   return `-----BEGIN PUBLIC KEY-----\n${formatted}\n-----END PUBLIC KEY-----`;
 }
 
-export default function Login() {
+export default function PasswordReset({token, email}:{token: string, email: string}) {
 
   const router = useRouter();
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("")
   const [errorMessage, setErrorMessage] = useState("");
@@ -38,7 +37,7 @@ export default function Login() {
 
     try {
 
-      const response = authService.login({userName: username, password: password});
+      const response = authService.resetPassword({email: email, token: token, password: password});
       response.then(async res => {
         try{
           if (res.status === 200) {
@@ -83,7 +82,7 @@ export default function Login() {
         className="mx-auto mb-6 w-24 h-auto"/>
 
         <p className="text-xl font-semibold text-gray-700 text-center mb-8">
-          Login to your account
+          Reset your password
         </p>
 
         {errorMessage && (
@@ -108,10 +107,10 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Username:
+              Email:
             </label>
             <input
               type="text"
@@ -119,9 +118,8 @@ export default function Login() {
               name="username"
               required
               className="input-field text-gray-700"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              contentEditable={false}
+              value={email}
             />
           </div>
 
@@ -146,17 +144,8 @@ export default function Login() {
 
           <div>
             <button type="submit" className="login-button">
-              Login
+              Reset Password
             </button>
-          </div>
-
-          <div className="text-center text-sm">
-            <Link
-              href="/forgot-password"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              Forgot your password?
-            </Link>
           </div>
         </form>
       </div>
