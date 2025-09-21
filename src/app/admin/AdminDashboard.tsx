@@ -66,23 +66,23 @@ const AdminDashboard = () => {
   };
 
   const navItems = [
-    { href: '/admin/dashboard', label: 'Dashboard', active: true },
-    { href: '/admin/manage-shops', label: 'Manage Shops', active: false },
-    { href: '/admin/manage-delivery-people', label: 'Manage Delivery People', active: false },
-    { href: '/admin/view-all-orders', label: 'View All Orders', active: false },
-    { href: '/admin/reports', label: 'Reports', active: false },
-    { href: '/admin/settings', label: 'Settings', active: false },
+    { href: '/admin/AdminDashboard', label: 'Dashboard', active: true },
+    { href: '/admin/Addshop', label: 'Manage Shops', active: false },
+    { href: '/admin/ManageDeliveryPerson', label: 'Manage Delivery People', active: false },
+    { href: '/admin/ViewAllORders', label: 'View All Orders', active: false },
+    { href: '/admin/Reports', label: 'Reports', active: false },
+    { href: '/admin/Settings', label: 'Settings', active: false },
   ];
 
   const quickActions = [
     {
-      href: '/admin/add-shop',
+      href: '/admin/AddShop.tsx',
       icon: '🛍️',
       title: 'Register New Shop',
       description: 'Add a new mushroom shop to the system.'
     },
     {
-      href: '/admin/add-delivery-person',
+      href: '/admin/AddDeliveryPerson.tsx',
       icon: '🚴',
       title: 'Add Delivery Person',
       description: 'Onboard a new delivery driver.'
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
       description: 'Check and manage all incoming orders.'
     },
     {
-      href: '/admin/update-daily-availability',
+      href: '/admin/UpdateDailyAvailability.tsx',
       icon: '📈',
       title: 'Update Daily Availability',
       description: 'Set available mushroom types and quantities for the day.'

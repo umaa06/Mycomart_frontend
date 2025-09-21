@@ -1,9 +1,20 @@
 "use client";
-import AdminDashboard from './admin/AdminDashboard';
-import EditDeliveryPerson from './admin/EditDeliveryPerson';
-import EditShop from './admin/EditShop';
+
+import UpdateDailyAvailability from "./admin/UpdateDailyAvailability";
+import Report from "./admin/Report";
+import Login from "./login/Login";
+import AdminDashboard from "./admin/AdminDashboard";
+import ViewAllOrders from "./admin/ViewAllOrders";
+
 
 export default function Home() {
+  const isTest = true;
+  if(isTest){
+    return (
+      <div>
+       <ViewAllOrders/>
+       </div>)
+       }
   return (
    <div>
     <Login/>

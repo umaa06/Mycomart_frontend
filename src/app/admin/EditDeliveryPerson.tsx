@@ -1,9 +1,7 @@
-"use client";
+'use client';
 import React, { useState, useEffect } from 'react';
 
 // Mock database and API calls to simulate a real backend.
-// In a real Next.js app, this logic would be in an API route (e.g., app/api/delivery-person/[id]/route.js)
-// and you would fetch the data from there.
 type DeliveryPerson = {
   delivery_person_id: string;
   user_id: string;
@@ -16,13 +14,13 @@ type DeliveryPerson = {
 
 const MOCK_DB: { [key: string]: DeliveryPerson } = {
   '123': {
-    delivery_person_id: '',
-    user_id: ' ',
-    dp_full_name: '',
-    dp_phone_number: '',
-    license_number: '',
-    username: '',
-    email: '',
+    delivery_person_id: '123',
+    user_id: 'user_001',
+    dp_full_name: 'Anduni',
+    dp_phone_number: '0759821545',
+    license_number: 'DL1234',
+    username: 'anduni',
+    email: 'anduni@gmail.com',
   },
 };
 
@@ -39,14 +37,14 @@ const fetchDeliveryPersonData = (id: string) => {
   });
 };
 
-const updateDeliveryPersonData = (id: string, formData: { fullName?: string; phoneNumber?: string; licenseNumber?: string; username: any; email: any; password?: string; confirmPassword?: string; delivery_person_id?: string; user_id?: string; dp_full_name?: string; dp_phone_number?: string; license_number?: string; }) => {
+const updateDeliveryPersonData = (id: string, formData: any) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // Simulate validation
+      // Simulate validation for username/email
       if (formData.username === 'existinguser' || formData.email === 'existing@example.com') {
         return reject({ message: 'username_or_email_exists' });
       }
-      
+
       // Simulate successful update
       MOCK_DB[id] = { ...MOCK_DB[id], ...formData };
       resolve({ success: true });
@@ -106,44 +104,30 @@ export default function App() {
     loadData();
   }, [deliveryPersonId]);
 
-  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
 
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.password && formData.password !== formData.confirmPassword) {
       setErrorMessage('New passwords do not match.');
       return;
     }
 
-    // In a real app, you'd make a POST request to your API route here.
     try {
-      // const response = await fetch(`/api/edit-delivery-person/${deliveryPersonId}`, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData),
-      // });
-      // const result = await response.json();
-      
-      // Using mock update function
       const result = await updateDeliveryPersonData(deliveryPersonId, formData) as { success: boolean };
       
       if (result.success) {
         setSuccessMessage('Delivery person details updated successfully!');
-        // In a real Next.js app, you would use the useRouter hook from next/navigation
-        // to redirect:
-        // const router = useRouter();
-        // router.push('/admin/manage_delivery_people');
       } else {
         setErrorMessage('An error occurred while updating the delivery person. Please try again.');
       }
     } catch (error) {
-      // Handle different error messages based on the backend response
       if (typeof error === 'object' && error !== null && 'message' in error && typeof (error as any).message === 'string' && (error as any).message === 'username_or_email_exists') {
         setErrorMessage('The username or email address is already registered to another user. Please use a different one.');
       } else {
@@ -208,8 +192,8 @@ export default function App() {
 
       <div className="flex-1 p-10">
         <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
-          <h1 className="text-4xl font-extrabold text-gray-900">Manage Delivery People{deliveryPersonData?.dp_full_name ?? 'N/A'}</h1>
-          <a href="manage_delivery_people.php" className="back-button w-auto px-6 py-3">
+          <h1 className="text-4xl font-extrabold text-gray-900">Edit Delivery Person: {deliveryPersonData?.dp_full_name ?? 'N/A'}</h1>
+          <a href="#" className="back-button w-auto px-6 py-3">
             Back to Manage Delivery People
           </a>
         </header>
@@ -327,7 +311,7 @@ export default function App() {
 
             <div>
               <button type="submit" className="submit-button">
-                Register Delivery Person
+                Update Delivery Person
               </button>
             </div>
           </form>
