@@ -1,18 +1,13 @@
 "use client";
-
-import UpdateDailyAvailability from "./admin/UpdateDailyAvailability";
-import Report from "./admin/Report";
 import Login from "./login/Login";
-import AdminDashboard from "./admin/AdminDashboard";
-import ViewAllOrders from "./admin/ViewAllOrders";
-
+import UpdateDailyAvailability from "./admin/update-daily-availability /page";
 
 export default function Home() {
-  const isTest = false;
+  const isTest =true;
   if(isTest){
     return (
       <div>
-       <ViewAllOrders/>
+       <UpdateDailyAvailability/>
        </div>)
        }
   return (

@@ -86,7 +86,7 @@ const DailyAvailability = () => {
         <div className="text-2xl font-bold mb-8">Admin Panel</div>
         <nav>
           <ul className="space-y-4">
-            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">Dashboard</a></li>
+            <li><a href="/admin/dashboard" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">Dashboard</a></li>
             <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">Manage Shops</a></li>
             <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">Manage Delivery People</a></li>
             <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">View All Orders</a></li>

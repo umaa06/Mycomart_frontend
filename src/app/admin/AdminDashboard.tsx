@@ -88,7 +88,7 @@ const AdminDashboard = () => {
       description: 'Add a new mushroom shop to the system.'
     },
     {
-      href: '/admin/AddDeliveryPerson.tsx',
+      href: '/admin/add-delivery-person',
       icon: '🚴',
       title: 'Add Delivery Person',
       description: 'Onboard a new delivery driver.'
@@ -100,7 +100,7 @@ const AdminDashboard = () => {
       description: 'Check and manage all incoming orders.'
     },
     {
-      href: '/admin/UpdateDailyAvailability.tsx',
+      href: '/admin/update-daily-availability',
       icon: '📈',
       title: 'Update Daily Availability',
       description: 'Set available mushroom types and quantities for the day.'
