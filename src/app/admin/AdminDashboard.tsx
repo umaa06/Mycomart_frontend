@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import {authService} from '@/app/api/authService';
 
 const AdminDashboard = () => {
   const router = useRouter();
@@ -40,8 +41,9 @@ const AdminDashboard = () => {
   }, []);
 
   const handleLogout = () => {
-    // Add logout logic here
-    router.push('/auth/login');
+    authService.logout().then(r=>{
+      router.push('/');
+    });
   };
 
   const SessionMessages = () => {
