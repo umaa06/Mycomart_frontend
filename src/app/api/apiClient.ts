@@ -31,6 +31,9 @@ export async function apiClient<T>(
         const response = await fetch(url, config);
 
         if (!response.ok) {
+            if(response.status === 401){
+                localStorage.clear();
+            }
             const errorData = await response.json().catch(() => ({}));
             throw {
                 status: response.status,
