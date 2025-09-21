@@ -8,11 +8,11 @@ import ViewAllOrders from "./admin/ViewAllOrders";
 
 
 export default function Home() {
-  const isTest = false;
+  const isTest = true;
   if(isTest){
     return (
       <div>
-       <ViewAllOrders/>
+       <AdminDashboard/>
        </div>)
        }
   return (
