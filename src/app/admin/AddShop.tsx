@@ -1,5 +1,8 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import './AddShop.css'; // Corrected: CSS file is now imported
 
 type FormData = {
   shopName: string;
@@ -15,6 +18,7 @@ type FormData = {
 type ValidationErrors = Partial<Record<keyof FormData, string>>;
 
 const AddShopForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     shopName: '',
     contactPerson: '',
@@ -35,7 +39,8 @@ const AddShopForm = () => {
   useEffect(() => {
     const adminToken = localStorage.getItem('adminToken');
     if (!adminToken) {
-      // window.location.href = '/admin/login';
+      // You might want to redirect here if not authenticated
+      // router.push('/admin/login');
       return;
     }
   }, []);
@@ -59,7 +64,6 @@ const AddShopForm = () => {
   const validateForm = () => {
     const errors: ValidationErrors = {};
 
-    // Required field validation
     if (!formData.shopName.trim()) errors.shopName = 'Shop name is required';
     if (!formData.contactPerson.trim()) errors.contactPerson = 'Contact person is required';
     if (!formData.address.trim()) errors.address = 'Address is required';
@@ -69,24 +73,20 @@ const AddShopForm = () => {
     if (!formData.password) errors.password = 'Password is required';
     if (!formData.confirmPassword) errors.confirmPassword = 'Please confirm password';
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (formData.email && !emailRegex.test(formData.email)) {
       errors.email = 'Please enter a valid email address';
     }
 
-    // Phone validation (basic)
     const phoneRegex = /^[\d\-\+\(\)\s]+$/;
     if (formData.phoneNumber && !phoneRegex.test(formData.phoneNumber)) {
       errors.phoneNumber = 'Please enter a valid phone number';
     }
 
-    // Password confirmation
     if (formData.password !== formData.confirmPassword) {
       errors.confirmPassword = 'Passwords do not match';
     }
 
-    // Password strength (basic)
     if (formData.password && formData.password.length < 6) {
       errors.password = 'Password must be at least 6 characters long';
     }
@@ -107,7 +107,6 @@ const AddShopForm = () => {
     setIsSubmitting(true);
 
     try {
-      // Prepare data for Spring Boot API
       const shopData = {
         shopName: formData.shopName.trim(),
         contactPerson: formData.contactPerson.trim(),
@@ -118,12 +117,10 @@ const AddShopForm = () => {
         password: formData.password
       };
 
-      // Call your Spring Boot API endpoint
       const response = await fetch('http://localhost:8080/api/admin/shops', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Add authorization if needed
           // 'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
         },
         body: JSON.stringify(shopData)
@@ -134,12 +131,10 @@ const AddShopForm = () => {
         throw new Error(errorData || `HTTP error! status: ${response.status}`);
       }
 
-      const result = await response.json();
+      await response.json();
 
-      // Success
       setSuccessMessage('Shop registered successfully!');
       
-      // Clear form
       setFormData({
         shopName: '',
         contactPerson: '',
@@ -151,7 +146,6 @@ const AddShopForm = () => {
         confirmPassword: ''
       });
 
-      // Scroll to top to show success message
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
     } catch (error) {
@@ -167,64 +161,81 @@ const AddShopForm = () => {
   };
 
   const handleBackToManageShops = () => {
-    window.location.href = '/admin/manage-shops';
+    router.push('/admin/manage-shops');
   };
 
+  const navItems = [
+        { href: '/admin/AdminDashboard', label: 'Dashboard', active: false },
+        { href: '/admin/Addshop', label: 'Manage Shops', active: true },
+        { href: '/admin/ManageDeliveryPerson', label: 'Manage Delivery People', active: false },
+        { href: '/admin/ViewAllORders', label: 'View All Orders', active: false },
+        { href: '/admin/Reports', label: 'Reports', active: false },
+        { href: '/admin/Settings', label: 'Settings', active: false },
+    ];
+    
   return (
-    <div className="min-h-screen bg-gray-100" style={{ fontFamily: 'Inter, sans-serif' }}>
-      <div className="flex">
-        {/* Sidebar - Simple version */}
-        <aside className="w-64 bg-white shadow-md h-screen p-6">
-          <div className="text-2xl font-bold text-gray-800 mb-8">Admin Panel</div>
-          <nav>
-            <ul className="space-y-2">
-              <li><a href="/admin/dashboard" className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-600">Dashboard</a></li>
-              <li><a href="/admin/manage-shops" className="block px-4 py-3 rounded-lg bg-indigo-600 text-white font-semibold">Manage Shops</a></li>
-              <li><a href="/admin/manage-delivery-people" className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-600">Manage Delivery People</a></li>
-              <li><a href="/admin/view-all-orders" className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-600">View All Orders</a></li>
-            </ul>
-          </nav>
-        </aside>
+        <div className="dashboard-container">
+            {/* Sidebar */}
+            <aside className="sidebar">
+                <div className="admin-panel-title">Admin Panel</div>
+                <nav>
+                    <ul className="nav-list">
+                        {navItems.map((item) => (
+                            <li key={item.href} className="nav-item">
+                                <Link
+                                    href={item.href}
+                                    className={`nav-link ${item.active ? 'active' : ''}`}
+                                >
+                                    {item.label}
+                                </Link>
+                            </li>
+                        ))}
+                        <li>
+                            <button
+                                // onClick={handleLogout} // Assumes logout function is available
+                                className="logout-btn"
+                            >
+                                Logout
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
 
-        {/* Main Content */}
-        <div className="flex-1 p-10">
-          {/* Header */}
-          <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
-            <h1 className="text-4xl font-extrabold text-gray-900">Register New Shop</h1>
+      {/* Main Content */}
+      <div className="main-content">
+        <div className="content-wrapper">
+          <header className="dashboard-header">
+            <h1 className="header-title">Register New Shop</h1>
             <button
               onClick={handleBackToManageShops}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="action-button"
             >
               Back to Manage Shops
             </button>
           </header>
 
-          {/* Success Message */}
           {successMessage && (
-            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6">
-              <strong className="font-bold">Success!</strong>
-              <span className="block sm:inline ml-2">{successMessage}</span>
+            <div className="alert success-alert">
+              <strong>Success!</strong>
+              <span>{successMessage}</span>
             </div>
           )}
 
-          {/* Error Message */}
           {errorMessage && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
-              <strong className="font-bold">Error!</strong>
-              <span className="block sm:inline ml-2">{errorMessage}</span>
+            <div className="alert error-alert">
+              <strong>Error!</strong>
+              <span>{errorMessage}</span>
             </div>
           )}
 
-          {/* Form */}
-          <div className="bg-white shadow-md rounded-lg p-6">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">Shop Details</h2>
-              
-              {/* Shop Name and Contact Person */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="form-container">
+            <div className="form-section">
+              <h2 className="section-title">Shop Details</h2>
+              <div className="form-grid">
                 <div>
-                  <label htmlFor="shopName" className="block text-sm font-medium text-gray-700 mb-1">
-                    Shop Name <span className="text-red-500">*</span>
+                  <label htmlFor="shopName" className="label">
+                    Shop Name <span className="required">*</span>
                   </label>
                   <input
                     type="text"
@@ -232,19 +243,16 @@ const AddShopForm = () => {
                     name="shopName"
                     value={formData.shopName}
                     onChange={handleInputChange}
-                    className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                      validationErrors.shopName ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`input-field ${validationErrors.shopName ? 'input-error' : ''}`}
                     disabled={isSubmitting}
                   />
                   {validationErrors.shopName && (
-                    <p className="mt-1 text-sm text-red-600">{validationErrors.shopName}</p>
+                    <p className="error-message">{validationErrors.shopName}</p>
                   )}
                 </div>
-                
                 <div>
-                  <label htmlFor="contactPerson" className="block text-sm font-medium text-gray-700 mb-1">
-                    Contact Person <span className="text-red-500">*</span>
+                  <label htmlFor="contactPerson" className="label">
+                    Contact Person <span className="required">*</span>
                   </label>
                   <input
                     type="text"
@@ -252,21 +260,18 @@ const AddShopForm = () => {
                     name="contactPerson"
                     value={formData.contactPerson}
                     onChange={handleInputChange}
-                    className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                      validationErrors.contactPerson ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`input-field ${validationErrors.contactPerson ? 'input-error' : ''}`}
                     disabled={isSubmitting}
                   />
                   {validationErrors.contactPerson && (
-                    <p className="mt-1 text-sm text-red-600">{validationErrors.contactPerson}</p>
+                    <p className="error-message">{validationErrors.contactPerson}</p>
                   )}
                 </div>
               </div>
 
-              {/* Address */}
               <div>
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
-                  Address <span className="text-red-500">*</span>
+                <label htmlFor="address" className="label">
+                  Address <span className="required">*</span>
                 </label>
                 <textarea
                   id="address"
@@ -274,20 +279,17 @@ const AddShopForm = () => {
                   rows={3}
                   value={formData.address}
                   onChange={handleInputChange}
-                  className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                    validationErrors.address ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`textarea-field ${validationErrors.address ? 'input-error' : ''}`}
                   disabled={isSubmitting}
                 />
                 {validationErrors.address && (
-                  <p className="mt-1 text-sm text-red-600">{validationErrors.address}</p>
+                  <p className="error-message">{validationErrors.address}</p>
                 )}
               </div>
 
-              {/* Phone Number */}
               <div>
-                <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number <span className="text-red-500">*</span>
+                <label htmlFor="phoneNumber" className="label">
+                  Phone Number <span className="required">*</span>
                 </label>
                 <input
                   type="tel"
@@ -295,24 +297,21 @@ const AddShopForm = () => {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleInputChange}
-                  className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                    validationErrors.phoneNumber ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`input-field ${validationErrors.phoneNumber ? 'input-error' : ''}`}
                   disabled={isSubmitting}
                 />
                 {validationErrors.phoneNumber && (
-                  <p className="mt-1 text-sm text-red-600">{validationErrors.phoneNumber}</p>
+                  <p className="error-message">{validationErrors.phoneNumber}</p>
                 )}
               </div>
+            </div>
 
-              {/* PasswordReset Credentials Section */}
-              <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-4 pt-6 border-t border-gray-200">Login Credentials</h2>
-              
-              {/* Username and Email */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="form-section login-credentials">
+              <h2 className="section-title">Login Credentials</h2>
+              <div className="form-grid">
                 <div>
-                  <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-                    Username <span className="text-red-500">*</span>
+                  <label htmlFor="username" className="label">
+                    Username <span className="required">*</span>
                   </label>
                   <input
                     type="text"
@@ -320,19 +319,16 @@ const AddShopForm = () => {
                     name="username"
                     value={formData.username}
                     onChange={handleInputChange}
-                    className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                      validationErrors.username ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`input-field ${validationErrors.username ? 'input-error' : ''}`}
                     disabled={isSubmitting}
                   />
                   {validationErrors.username && (
-                    <p className="mt-1 text-sm text-red-600">{validationErrors.username}</p>
+                    <p className="error-message">{validationErrors.username}</p>
                   )}
                 </div>
-                
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email Address <span className="text-red-500">*</span>
+                  <label htmlFor="email" className="label">
+                    Email Address <span className="required">*</span>
                   </label>
                   <input
                     type="email"
@@ -340,22 +336,19 @@ const AddShopForm = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                      validationErrors.email ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`input-field ${validationErrors.email ? 'input-error' : ''}`}
                     disabled={isSubmitting}
                   />
                   {validationErrors.email && (
-                    <p className="mt-1 text-sm text-red-600">{validationErrors.email}</p>
+                    <p className="error-message">{validationErrors.email}</p>
                   )}
                 </div>
               </div>
 
-              {/* Password Fields */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="form-grid">
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                    Password <span className="text-red-500">*</span>
+                  <label htmlFor="password" className="label">
+                    Password <span className="required">*</span>
                   </label>
                   <input
                     type="password"
@@ -363,19 +356,16 @@ const AddShopForm = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                      validationErrors.password ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`input-field ${validationErrors.password ? 'input-error' : ''}`}
                     disabled={isSubmitting}
                   />
                   {validationErrors.password && (
-                    <p className="mt-1 text-sm text-red-600">{validationErrors.password}</p>
+                    <p className="error-message">{validationErrors.password}</p>
                   )}
                 </div>
-                
                 <div>
-                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                    Confirm Password <span className="text-red-500">*</span>
+                  <label htmlFor="confirmPassword" className="label">
+                    Confirm Password <span className="required">*</span>
                   </label>
                   <input
                     type="password"
@@ -383,39 +373,32 @@ const AddShopForm = () => {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    className={`mt-1 block w-full border rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                      validationErrors.confirmPassword ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`input-field ${validationErrors.confirmPassword ? 'input-error' : ''}`}
                     disabled={isSubmitting}
                   />
                   {validationErrors.confirmPassword && (
-                    <p className="mt-1 text-sm text-red-600">{validationErrors.confirmPassword}</p>
+                    <p className="error-message">{validationErrors.confirmPassword}</p>
                   )}
                 </div>
               </div>
+            </div>
 
-              {/* Submit Button */}
-              <div className="pt-6">
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className={`inline-flex justify-center items-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white ${
-                    isSubmitting 
-                      ? 'bg-gray-400 cursor-not-allowed' 
-                      : 'bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                  }`}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      Registering Shop...
-                    </>
-                  ) : (
-                    'Register Shop'
-                  )}
-                </button>
-              </div>
+            <div className="form-actions">
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <div className="spinner"></div>
+                    Registering Shop...
+                  </>
+                ) : (
+                  'Register Shop'
+                )}
+              </button>
             </div>
           </div>
         </div>
