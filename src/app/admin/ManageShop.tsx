@@ -95,10 +95,10 @@ const ManageShops = () => {
   
   // Navigation Links
   const navLinks = [
-    { name: 'Dashboard', href: '#' },
-    { name: 'Manage Shops', href: '#', active: true },
-    { name: 'Manage Delivery People', href: '#' },
-    { name: 'View All Orders', href: '/view_all_orders' },
+    { name: 'Dashboard', href: '/admin/dashboard' },
+    { name: 'Manage Shops', href: '/admin/manage-shops', active: true },
+    { name: 'Manage Delivery People', href: '/admin/add-delivery-person' },
+    { name: 'View All Orders', href: '/admin/view-all-orders' },
     { name: 'Reports', href: '#' },
     { name: 'Settings', href: '#' },
     { name: 'Logout', href: '#', isLogout: true },
