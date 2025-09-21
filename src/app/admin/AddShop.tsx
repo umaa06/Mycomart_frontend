@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import {dashboardService} from '@/app/api/dashboardService';
 
 type FormData = {
   shopName: string;
@@ -113,11 +114,12 @@ const AddShopForm = () => {
         contactPerson: formData.contactPerson.trim(),
         address: formData.address.trim(),
         phoneNumber: formData.phoneNumber.trim(),
-        username: formData.username.trim(),
+        userName: formData.username.trim(),
         email: formData.email.trim(),
         password: formData.password
       };
 
+      await dashboardService.registerShop(shopData);
       // Call your Spring Boot API endpoint
       const response = await fetch('http://localhost:8080/api/admin/shops', {
         method: 'POST',

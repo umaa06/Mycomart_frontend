@@ -285,7 +285,7 @@ const AddDeliveryPersonForm = () => {
         {/* Form Container */}
         <div className="bg-white rounded-xl shadow-lg p-10 max-w-4xl mx-auto">
           <div className="space-y-6">
-            {/* Delivery Person Details Section */}
+            {/* delivery Person Details Section */}
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Delivery Person Details</h2>
             
             {/* Full Name */}
@@ -460,7 +460,7 @@ const AddDeliveryPersonForm = () => {
                     Registering Delivery Person...
                   </div>
                 ) : (
-                  'Register Delivery Person'
+                  'Register delivery Person'
                 )}
               </button>
             </div>

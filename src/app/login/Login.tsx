@@ -47,7 +47,7 @@ export default function Login() {
 
             const publicKey = await importSPKI(PUBLIC_KEY_PEM, "RS256");
             var jwtPayloadJWTVerifyResult = await jwtVerify(res.token, publicKey);
-            handleSuccessMessage("PasswordReset successful! Redirecting...");
+            handleSuccessMessage("Login successful! Redirecting...");
             // var jwtPayload = jwtDecode(res.token);
             localStorage.setItem('token', res.token);
             var role:UserType = jwtPayloadJWTVerifyResult.payload.role as UserType;
@@ -55,6 +55,8 @@ export default function Login() {
             localStorage.setItem('userName', username);
             if(role === UserType.ADMIN){
               router.push("/admin");
+            } else if(role === UserType.SHOP){
+                router.push("/shop");
             }
           } else {
             handleErrorMessage("Invalid login.");
@@ -74,15 +76,15 @@ export default function Login() {
   return (
       <div className="bg-image flex items-center justify-center min-h-screen bg-gray-100 font-sans">
       <div className="bg-white rounded-2xl shadow-lg p-10 max-w-md w-full">
-        <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-6">
-          Mushroom Sales System
-        </h2>
         <Image
         src="/mycomart_logo.png"
         alt="MYCOMART Logo"
-        width={96}
-        height={96}
+        width={120}
+        height={100}
         className="mx-auto mb-6 w-24 h-auto"/>
+        <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-6">
+          Mushroom Sales System
+        </h2>
 
         <p className="text-xl font-semibold text-gray-700 text-center mb-8">
           Login to your account
@@ -155,7 +157,7 @@ export default function Login() {
           <div className="text-center text-sm">
             <Link
               href="/forgot-password"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-medium text-[#402101] hover:text-[#7B3F00]"
             >
               Forgot your password?
             </Link>

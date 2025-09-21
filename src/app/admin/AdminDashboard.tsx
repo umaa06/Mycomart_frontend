@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import {authService} from '@/app/api/authService';
-import {dashboardService} from '@/app/api/dashboardService';
+import { authService } from '@/app/api/authService';
+import { dashboardService } from '@/app/api/dashboardService';
+
+import './AdminDashboard.css'; // Import the new CSS file
 
 const AdminDashboard = () => {
   const router = useRouter();
@@ -22,10 +24,9 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-
         const dashBoardDetails = await dashboardService.dashboardDetails();
-        console.log(dashBoardDetails)
-        
+        console.log(dashBoardDetails);
+
         // Mock data for demonstration
         setDashboardData({
           totalShops: dashBoardDetails.totalShops,
@@ -33,10 +34,7 @@ const AdminDashboard = () => {
           totalPendingOrders: dashBoardDetails.pendingOrders,
           todayAvailableMushrooms: dashBoardDetails.availableToday
         });
-      } catch (error) {
-        if(error.status && (error.status === 401 || error.status === 403)){
-          router.push("/");
-        }
+      } catch (error: any) {
         setErrorMessage('Failed to load dashboard data');
       }
     };
@@ -45,14 +43,14 @@ const AdminDashboard = () => {
   }, []);
 
   const handleLogout = () => {
-    authService.logout().then(r=>{
+    authService.logout().then(r => {
       router.push('/');
     });
   };
 
   const SessionMessages = () => {
     if (!sessionMessages.success && !sessionMessages.error) return null;
-    
+
     return (
       <div className="mb-6">
         {sessionMessages.success && (
@@ -72,9 +70,9 @@ const AdminDashboard = () => {
   };
 
   const navItems = [
-    { href: '/admin/AdminDashboard', label: 'Dashboard', active: true },
-    { href: '/admin/Addshop', label: 'Manage Shops', active: false },
-    { href: '/admin/ManageDeliveryPerson', label: 'Manage Delivery People', active: false },
+    { href: '/admin', label: 'Dashboard', active: true },
+    { href: '/admin/add-shop', label: 'Manage Shops', active: false },
+    { href: '/admin/ManageDeliveryPerson', label: 'Manage delivery People', active: false },
     { href: '/admin/ViewAllORders', label: 'View All Orders', active: false },
     { href: '/admin/Reports', label: 'Reports', active: false },
     { href: '/admin/Settings', label: 'Settings', active: false },
@@ -83,9 +81,8 @@ const AdminDashboard = () => {
   const quickActions = [
     {
       href: '/admin/add-shop',
-      icon: '🛍️',
-      title: 'Register New Shop',
-      description: 'Add a new mushroom shop to the system.'
+      title: 'Register new Shops',
+      description: 'Add new mushroom to the shop'
     },
     {
       href: '/admin/add-delivery-person',
@@ -95,15 +92,14 @@ const AdminDashboard = () => {
     },
     {
       href: '/admin/view-all-orders',
-      icon: '📋',
       title: 'Review Orders',
-      description: 'Check and manage all incoming orders.'
+      description: 'Check and manage all income orders'
     },
     {
       href: '/admin/update-daily-availability',
       icon: '📈',
       title: 'Update Daily Availability',
-      description: 'Set available mushroom types and quantities for the day.'
+      description: 'Set available mushroom types'
     }
   ];
 
@@ -111,42 +107,37 @@ const AdminDashboard = () => {
     {
       title: 'Total Shops',
       value: dashboardData.totalShops,
-      color: 'text-blue-600'
+      color: 'stats-value'
     },
     {
-      title: 'Total Delivery People',
+      title: 'Total delivery People',
       value: dashboardData.totalDeliveryPeople,
-      color: 'text-purple-600'
+      color: 'stats-value'
     },
     {
       title: 'Pending Orders',
       value: dashboardData.totalPendingOrders,
-      color: 'text-indigo-600'
+      color: 'stats-value'
     },
     {
-      title: 'Mushrooms Available Today',
-      value: `${dashboardData.todayAvailableMushrooms} kg`,
-      color: 'text-green-600',
-      subtitle: 'Total quantity available for current date.'
+      title: 'Today Mushroom Availability',
+      value: `${dashboardData.todayAvailableMushrooms}kg`,
+      color: 'stats-value-green'
     }
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-100" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <div className="dashboard-container">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md h-screen p-6">
-        <div className="text-2xl font-bold text-gray-800 mb-8">Admin Panel</div>
+      <aside className="sidebar">
+        <div className="admin-panel-title">Admin Panel</div>
         <nav>
-          <ul className="space-y-2">
+          <ul className="nav-list">
             {navItems.map((item) => (
-              <li key={item.href}>
-                <Link 
+              <li key={item.href} className="nav-item">
+                <Link
                   href={item.href}
-                  className={`block px-4 py-3 rounded-lg transition-all duration-200 ${
-                    item.active 
-                      ? 'bg-indigo-600 text-white font-semibold' 
-                      : 'text-gray-700 hover:bg-indigo-100 hover:text-indigo-600'
-                  }`}
+                  className={`nav-link ${item.active ? 'active' : ''}`}
                 >
                   {item.label}
                 </Link>
@@ -155,7 +146,7 @@ const AdminDashboard = () => {
             <li>
               <button
                 onClick={handleLogout}
-                className="block w-full text-left px-4 py-3 rounded-lg text-red-600 hover:bg-red-100 hover:text-red-700 transition-all duration-200"
+                className="logout-btn"
               >
                 Logout
               </button>
@@ -165,53 +156,51 @@ const AdminDashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 p-10">
-        {/* Header */}
-        <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
-          <h1 className="text-4xl font-extrabold text-gray-900">Admin Dashboard</h1>
-          <div className="text-lg text-gray-700">
-            Welcome, <span className="font-semibold text-indigo-600">{adminUsername}</span>!
-          </div>
-        </header>
-
-        {/* Session Messages */}
-        <SessionMessages />
-
-        {/* Error Message */}
-        {errorMessage && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative mb-6" role="alert">
-            <strong className="font-bold">Error!</strong>
-            <span className="block sm:inline ml-2">{errorMessage}</span>
-          </div>
-        )}
-
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          {statsCards.map((card, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg p-6 text-center">
-              <h2 className="text-xl font-semibold text-gray-700 mb-2">{card.title}</h2>
-              <p className={`text-5xl font-bold ${card.color} mb-2`}>{card.value}</p>
-              {card.subtitle && (
-                <p className="text-gray-500 text-sm">{card.subtitle}</p>
-              )}
+      <div className="main-content">
+        <div className="content-wrapper">
+          {/* Header */}
+          <header className="dashboard-header">
+            <h1 className="header-title">Admin Dashboard</h1>
+            <div className="welcome-message">
+              Welcome, <span className="welcome-username">{adminUsername}</span>!
             </div>
-          ))}
-        </div>
+          </header>
 
-        {/* Quick Actions */}
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {quickActions.map((action, index) => (
-            <Link 
-              key={index}
-              href={action.href}
-              className="bg-white rounded-xl shadow-lg p-6 text-center transition-all duration-200 hover:transform hover:-translate-y-1 hover:shadow-xl flex flex-col items-center justify-center"
-            >
-              <span className="text-indigo-500 text-4xl mb-2">{action.icon}</span>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">{action.title}</h3>
-              <p className="text-sm text-gray-600">{action.description}</p>
-            </Link>
-          ))}
+          {/* Session Messages */}
+          <SessionMessages />
+
+          {/* Error Message */}
+          {errorMessage && (
+            <div className="error-message" role="alert">
+              <strong>Error!</strong>
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          {/* Stats Cards */}
+          <div className="stats-grid">
+            {statsCards.map((card, index) => (
+              <div key={index} className="stats-card">
+                <h2 className="stats-card-title">{card.title}</h2>
+                <p className={`stats-card-value ${card.color}`}>{card.value}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Quick Actions */}
+          <h2 className="quick-actions-heading">Quick Actions</h2>
+          <div className="quick-actions-grid">
+            {quickActions.map((action, index) => (
+              <Link
+                key={index}
+                href={action.href}
+                className="quick-action-link"
+              >
+                <h3 className="quick-action-title">{action.title}</h3>
+                <p className="quick-action-description">{action.description}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>
