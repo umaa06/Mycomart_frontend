@@ -34,10 +34,7 @@ const AdminDashboard = () => {
           totalPendingOrders: dashBoardDetails.pendingOrders,
           todayAvailableMushrooms: dashBoardDetails.availableToday
         });
-      } catch (error) {
-        if (error.status && (error.status === 401 || error.status === 403)) {
-          router.push("/");
-        }
+      } catch (error: any) {
         setErrorMessage('Failed to load dashboard data');
       }
     };
@@ -73,9 +70,9 @@ const AdminDashboard = () => {
   };
 
   const navItems = [
-    { href: '/admin/AdminDashboard', label: 'Dashboard', active: true },
-    { href: '/admin/Addshop', label: 'Manage Shops', active: false },
-    { href: '/admin/ManageDeliveryPerson', label: 'Manage Delivery People', active: false },
+    { href: '/admin', label: 'Dashboard', active: true },
+    { href: '/admin/add-shop', label: 'Manage Shops', active: false },
+    { href: '/admin/ManageDeliveryPerson', label: 'Manage delivery People', active: false },
     { href: '/admin/ViewAllORders', label: 'View All Orders', active: false },
     { href: '/admin/Reports', label: 'Reports', active: false },
     { href: '/admin/Settings', label: 'Settings', active: false },
@@ -89,7 +86,7 @@ const AdminDashboard = () => {
     },
     {
       href: '/admin/AddDeliveryPerson.tsx',
-      title: 'Add Delivery People',
+      title: 'Add delivery People',
       description: 'On board a new delivery driver'
     },
     {
@@ -111,7 +108,7 @@ const AdminDashboard = () => {
       color: 'stats-value'
     },
     {
-      title: 'Total Delivery People',
+      title: 'Total delivery People',
       value: dashboardData.totalDeliveryPeople,
       color: 'stats-value'
     },

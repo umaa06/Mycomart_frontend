@@ -18,7 +18,7 @@ const mockOrders = [
   {
     id: "102",
     order_date: '2023-10-25T14:30:00',
-    status: 'Assigned for Delivery',
+    status: 'Assigned for delivery',
     total_amount: 75.00,
     shop_name: 'Mushroom Market',
     shop_address: '456 Hill Street, Meadowville',
@@ -28,7 +28,7 @@ const mockOrders = [
   {
     id: "103",
     order_date: '2023-10-26T09:00:00',
-    status: 'Out for Delivery',
+    status: 'Out for delivery',
     total_amount: 25.25,
     shop_name: 'Fungi Friends',
     shop_address: '789 Grove Avenue, Green Acres',
@@ -91,7 +91,7 @@ const DeliveryDashboard = () => {
           // Create a new, updated object instead of mutating the old one
           const updatedOrder = {
             ...orderToAccept,
-            status: 'Assigned for Delivery',
+            status: 'Assigned for delivery',
             delivery_person_id: userId
           };
 
@@ -134,8 +134,8 @@ const DeliveryDashboard = () => {
 
   const getStatusBadgeClass = (status) => {
     switch (status) {
-      case 'Assigned for Delivery': return 'bg-indigo-100 text-indigo-600';
-      case 'Out for Delivery': return 'bg-red-100 text-red-600';
+      case 'Assigned for delivery': return 'bg-indigo-100 text-indigo-600';
+      case 'Out for delivery': return 'bg-red-100 text-red-600';
       case 'Delivered': return 'bg-green-100 text-green-700';
       default: return 'bg-gray-200 text-gray-800';
     }
@@ -268,12 +268,12 @@ const DeliveryDashboard = () => {
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            {delivery.status === 'Assigned for Delivery' && (
-                              <button onClick={() => handleUpdateStatus(delivery.id, 'Out for Delivery')} className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200">
+                            {delivery.status === 'Assigned for delivery' && (
+                              <button onClick={() => handleUpdateStatus(delivery.id, 'Out for delivery')} className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200">
                                 Mark Out for Delivery
                               </button>
                             )}
-                            {delivery.status === 'Out for Delivery' && (
+                            {delivery.status === 'Out for delivery' && (
                               <button onClick={() => handleUpdateStatus(delivery.id, 'Delivered')} className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 transition-colors duration-200">
                                 Mark Delivered
                               </button>

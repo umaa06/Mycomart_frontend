@@ -93,7 +93,7 @@ export default function App() {
     try {
       const result = await deleteDeliveryPerson(personToDelete.delivery_person_id);
       if (result.success) {
-        setSuccessMessage('Delivery person deleted successfully!');
+        setSuccessMessage('delivery person deleted successfully!');
         setDeliveryPeople(prevPeople =>
           prevPeople.filter(p => p.delivery_person_id !== personToDelete.delivery_person_id)
         );

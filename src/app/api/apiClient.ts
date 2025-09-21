@@ -33,6 +33,7 @@ export async function apiClient<T>(
         if (!response.ok) {
             if(response.status === 401){
                 localStorage.clear();
+                window.location.href = '/';
             }
             const errorData = await response.json().catch(() => ({}));
             throw {

@@ -115,7 +115,7 @@ const ViewAllOrders = () => {
     const navItems = [
         { href: '/admin/AdminDashboard', label: 'Dashboard', active: false },
         { href: '/admin/Addshop', label: 'Manage Shops', active: false },
-        { href: '/admin/ManageDeliveryPerson', label: 'Manage Delivery People', active: false },
+        { href: '/admin/ManageDeliveryPerson', label: 'Manage delivery People', active: false },
         { href: '/admin/ViewAllORders', label: 'View All Orders', active: true },
         { href: '/admin/Reports', label: 'Reports', active: false },
         { href: '/admin/Settings', label: 'Settings', active: false },
