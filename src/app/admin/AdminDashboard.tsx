@@ -3,15 +3,17 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {authService} from '@/app/api/authService';
+import {dashboardService} from '@/app/api/dashboardService';
 
 const AdminDashboard = () => {
   const router = useRouter();
+  const userName = localStorage.getItem('userName');
+  const adminUsername = userName ? userName : 'Admin';
   const [dashboardData, setDashboardData] = useState({
     totalShops: 0,
     totalDeliveryPeople: 0,
     totalPendingOrders: 0,
-    todayAvailableMushrooms: 0,
-    adminUsername: 'Admin User'
+    todayAvailableMushrooms: 0
   });
   const [errorMessage, setErrorMessage] = useState('');
   const [sessionMessages, setSessionMessages] = useState({ success: '', error: '' });
@@ -20,19 +22,21 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        // Replace with actual API call
-        // const response = await fetch('/api/dashboard');
-        // const data = await response.json();
+
+        const dashBoardDetails = await dashboardService.dashboardDetails();
+        console.log(dashBoardDetails)
         
         // Mock data for demonstration
         setDashboardData({
-          totalShops: 12,
-          totalDeliveryPeople: 8,
-          totalPendingOrders: 23,
-          todayAvailableMushrooms: 145,
-          adminUsername: 'John Admin'
+          totalShops: dashBoardDetails.totalShops,
+          totalDeliveryPeople: dashBoardDetails.totalDeliveryPersons,
+          totalPendingOrders: dashBoardDetails.pendingOrders,
+          todayAvailableMushrooms: dashBoardDetails.availableToday
         });
       } catch (error) {
+        if(error.status && (error.status === 401 || error.status === 403)){
+          router.push("/");
+        }
         setErrorMessage('Failed to load dashboard data');
       }
     };
@@ -78,7 +82,7 @@ const AdminDashboard = () => {
 
   const quickActions = [
     {
-      href: '/admin/AddShop.tsx',
+      href: '/admin/add-shop',
       icon: '🛍️',
       title: 'Register New Shop',
       description: 'Add a new mushroom shop to the system.'
@@ -166,7 +170,7 @@ const AdminDashboard = () => {
         <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
           <h1 className="text-4xl font-extrabold text-gray-900">Admin Dashboard</h1>
           <div className="text-lg text-gray-700">
-            Welcome, <span className="font-semibold text-indigo-600">{dashboardData.adminUsername}</span>!
+            Welcome, <span className="font-semibold text-indigo-600">{adminUsername}</span>!
           </div>
         </header>
 

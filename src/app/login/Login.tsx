@@ -51,6 +51,8 @@ export default function Login() {
             // var jwtPayload = jwtDecode(res.token);
             localStorage.setItem('token', res.token);
             var role:UserType = jwtPayloadJWTVerifyResult.payload.role as UserType;
+            var username = jwtPayloadJWTVerifyResult.payload.username as string;
+            localStorage.setItem('userName', username);
             if(role === UserType.ADMIN){
               router.push("/admin");
             }
