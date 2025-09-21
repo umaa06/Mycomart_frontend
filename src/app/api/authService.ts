@@ -9,5 +9,8 @@ export const authService = {
     },
     resetPassword: ( credential: { email: string, token: string, password: string } ) => {
         return api.post<{token: string, status: number }>('/auth/reset-password', credential);
+    },
+    logout:()=> {
+        return api.post<{}>('/auth/logout', null);
     }
 }
