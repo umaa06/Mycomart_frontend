@@ -47,7 +47,7 @@ export default function Login() {
 
             const publicKey = await importSPKI(PUBLIC_KEY_PEM, "RS256");
             var jwtPayloadJWTVerifyResult = await jwtVerify(res.token, publicKey);
-            handleSuccessMessage("PasswordReset successful! Redirecting...");
+            handleSuccessMessage("Login successful! Redirecting...");
             // var jwtPayload = jwtDecode(res.token);
             localStorage.setItem('token', res.token);
             var role:UserType = jwtPayloadJWTVerifyResult.payload.role as UserType;
@@ -55,6 +55,8 @@ export default function Login() {
             localStorage.setItem('userName', username);
             if(role === UserType.ADMIN){
               router.push("/admin");
+            } else if(role === UserType.SHOP){
+                router.push("/shop");
             }
           } else {
             handleErrorMessage("Invalid login.");

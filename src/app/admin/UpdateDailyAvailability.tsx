@@ -82,6 +82,7 @@ const UpdateDailyAvailability = () => {
       <aside className="sidebar">
         <div className="admin-panel-title">Admin Panel</div>
         <nav>
+<<<<<<< HEAD
           <ul>
             <li className="nav-item">
               <a href="#" className="nav-link">
@@ -123,6 +124,17 @@ const UpdateDailyAvailability = () => {
                 Logout
               </button>
             </li>
+=======
+          <ul className="space-y-4">
+            <li><a href="/admin/dashboard" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">Dashboard</a></li>
+            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">Manage Shops</a></li>
+            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">Manage Delivery People</a></li>
+            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">View All Orders</a></li>
+            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">Reports</a></li>
+            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">Customer Ratings</a></li>
+            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#EAE2CE] transition-colors duration-200">Settings</a></li>
+            <li><a href="#" className="block px-4 py-3 rounded-lg text-red-600 hover:text-red-700 transition-colors duration-200">Logout</a></li>
+>>>>>>> 17913f82d21836026f3a6d4b0d017f170bdf2903
           </ul>
         </nav>
       </aside>

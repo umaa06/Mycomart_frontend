@@ -273,11 +273,56 @@ const AddDeliveryPersonForm = () => {
             </button>
           </header>
 
+<<<<<<< HEAD
           {/* Error Message */}
           {errorMessage && (
             <div className="error-message" role="alert">
               <strong>Error!</strong>
               <span>{errorMessage}</span>
+=======
+        {/* Error Message */}
+        {errorMessage && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6" role="alert">
+            <strong className="font-bold">Error!</strong>
+            <span className="block sm:inline ml-2">{errorMessage}</span>
+          </div>
+        )}
+
+        {/* Success Message */}
+        {successMessage && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6" role="alert">
+            <strong className="font-bold">Success!</strong>
+            <span className="block sm:inline ml-2">{successMessage}</span>
+          </div>
+        )}
+
+        {/* Form Container */}
+        <div className="bg-white rounded-xl shadow-lg p-10 max-w-4xl mx-auto">
+          <div className="space-y-6">
+            {/* delivery Person Details Section */}
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Delivery Person Details</h2>
+            
+            {/* Full Name */}
+            <div>
+              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+                Full Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleInputChange}
+                className={`w-full border rounded-lg shadow-sm py-3 px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
+                  validationErrors.fullName ? 'border-red-500' : 'border-gray-300'
+                }`}
+                placeholder="e.g., Shen Fernando"
+                disabled={isSubmitting}
+              />
+              {validationErrors.fullName && (
+                <p className="mt-1 text-sm text-red-600">{validationErrors.fullName}</p>
+              )}
+>>>>>>> 17913f82d21836026f3a6d4b0d017f170bdf2903
             </div>
           )}
 
@@ -335,6 +380,7 @@ const AddDeliveryPersonForm = () => {
                 )}
               </div>
 
+<<<<<<< HEAD
               {/* License Number */}
               <div>
                 <label htmlFor="licenseNumber" className="form-label">
@@ -455,6 +501,30 @@ const AddDeliveryPersonForm = () => {
                 </button>
               </div>
             </form>
+=======
+            {/* Submit Button */}
+            <div className="pt-6">
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className={`w-full py-3 px-6 rounded-lg font-semibold shadow-lg transition-colors ${
+                  isSubmitting 
+                    ? 'bg-gray-400 cursor-not-allowed text-gray-700' 
+                    : 'bg-emerald-500 hover:bg-emerald-600 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500'
+                }`}
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                    Registering Delivery Person...
+                  </div>
+                ) : (
+                  'Register delivery Person'
+                )}
+              </button>
+            </div>
+>>>>>>> 17913f82d21836026f3a6d4b0d017f170bdf2903
           </div>
         </div>
       </div>

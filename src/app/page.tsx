@@ -1,7 +1,4 @@
 "use client";
-
-import UpdateDailyAvailability from "./admin/UpdateDailyAvailability";
-import Report from "./admin/Report";
 import Login from "./login/Login";
 import AdminDashboard from "./admin/AdminDashboard";
 import ViewAllOrders from "./admin/ViewAllOrders";
@@ -11,11 +8,11 @@ import AddShopForm from "./admin/AddShop";
 
 
 export default function Home() {
-  const isTest = true;
+  const isTest =true;
   if(isTest){
     return (
       <div>
-       <AddShopForm/>
+       <AdminDashboard/>
        </div>)
        }
   return (

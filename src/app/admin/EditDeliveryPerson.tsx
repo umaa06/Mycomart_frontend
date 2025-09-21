@@ -31,7 +31,7 @@ const fetchDeliveryPersonData = (id: string) => {
       if (data) {
         resolve(data);
       } else {
-        reject(new Error('Delivery person not found.'));
+        reject(new Error('delivery person not found.'));
       }
     }, 500); // Simulate network delay
   });
@@ -123,7 +123,7 @@ export default function App() {
       const result = await updateDeliveryPersonData(deliveryPersonId, formData) as { success: boolean };
       
       if (result.success) {
-        setSuccessMessage('Delivery person details updated successfully!');
+        setSuccessMessage('delivery person details updated successfully!');
       } else {
         setErrorMessage('An error occurred while updating the delivery person. Please try again.');
       }
