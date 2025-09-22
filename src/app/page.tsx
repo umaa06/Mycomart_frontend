@@ -1,5 +1,5 @@
 "use client";
-import Report from "./admin/Report";
+import EditShop from "./admin/EditShop";
 import Login from "./login/Login";
 
 
@@ -8,7 +8,7 @@ export default function Home() {
   if(isTest){
     return (
       <div>
-       <Report/>
+       <EditShop/>
        </div>)
        }
   return (

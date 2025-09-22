@@ -179,7 +179,7 @@ export default function App() {
         <div className="text-2xl font-bold text-gray-800 mb-8">Admin Panel</div>
         <nav>
           <ul className="space-y-2">
-            <li><a href="dashboard.php" className="nav-link">Dashboard</a></li>
+            <li><a href="DeliveryDashboard" className="nav-link">Dashboard</a></li>
             <li><a href="manage_shops.php" className="nav-link">Manage Shops</a></li>
             <li><a href="manage_delivery_people.php" className="nav-link active">Manage Delivery People</a></li>
             <li><a href="view_all_orders.php" className="nav-link">View All Orders</a></li>

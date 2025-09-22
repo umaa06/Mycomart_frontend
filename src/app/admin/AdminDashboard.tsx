@@ -70,10 +70,10 @@ const AdminDashboard = () => {
   };
 
   const navItems = [
-    { href: '/admin', label: 'Dashboard', active: true },
+    { href: '/admin/dashboard', label: 'Dashboard', active: true },
     { href: '/admin/add-shop', label: 'Manage Shops', active: false },
     { href: '/admin/manage-delivery-people', label: 'Manage delivery People', active: false },
-    { href: '/admin/ViewAllORders', label: 'View All Orders', active: false },
+    { href: '/admin/view-all-orders', label: 'View All Orders', active: false },
     { href: '/admin/Reports', label: 'Reports', active: false },
     { href: '/admin/Settings', label: 'Settings', active: false },
   ];
