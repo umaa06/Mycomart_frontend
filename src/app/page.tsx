@@ -1,5 +1,5 @@
 "use client";
-import DeliveryDashboard from "./Delivery/DeliveryDashboard";
+import AdminDashboard from "./admin/AdminDashboard";
 import Login from "./login/Login";
 
 
@@ -8,7 +8,7 @@ export default function Home() {
   if(isTest){
     return (
       <div>
-       <DeliveryDashboard/>
+       <AdminDashboard/>
        </div>)
        }
   return (
