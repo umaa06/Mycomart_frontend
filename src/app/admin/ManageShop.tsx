@@ -84,7 +84,7 @@ const ManageShops = () => {
     }, 1000);
   }, []);
 
-  const handleDeleteShop = (shopId) => {
+  const handleDeleteShop = (shopId:any) => {
     if (window.confirm('Are you sure you want to delete this shop and its associated user account? This action cannot be undone.')) {
       // In a real app, you would make an API call to delete the shop
       // For this mock, we'll filter out the deleted shop

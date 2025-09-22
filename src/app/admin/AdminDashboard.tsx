@@ -45,7 +45,7 @@ const AdminDashboard = () => {
   const handleLogout = () => {
     authService.logout().then(r => {
       router.push('/');
-    });
+    }).catch(ra=>{router.push('/')});
   };
 
   const SessionMessages = () => {
