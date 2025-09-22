@@ -73,7 +73,7 @@ const AdminDashboard = () => {
     { href: '/admin/admin-dashboard', label: 'Dashboard', active: true },
     { href: '/admin/manage-shops', label: 'Manage Shops', active: false },
     { href: '/admin/manage-delivery-people', label: 'Manage delivery People', active: false },
-    { href: 'admin/view-all-orders', label: 'View All Orders', active: false },
+    { href: '/admin/view-all-orders', label: 'View All Orders', active: false },
     { href: '/admin/report', label: 'Reports', active: false },
     { href: '/admin/setting', label: 'Settings', active: false },
   ];
