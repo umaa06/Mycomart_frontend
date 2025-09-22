@@ -1,0 +1,201 @@
+/* General Layout and Background */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.delivery-history-container {
+  display: flex;
+  min-height: 100vh;
+  background-image: url('/dashboard.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.delivery-history-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(230, 203, 169, 0.6);
+  z-index: 0;
+}
+
+/* Sidebar Styles (reused from DeliveryDashboard) */
+.sidebar {
+  width: 256px;
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+  padding: 24px;
+  z-index: 1;
+}
+
+.delivery-panel-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #402101;
+  margin-bottom: 32px;
+}
+
+.nav-item-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 20px 16px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  color: #402101;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-item-link:hover {
+  background-color: #E6E6E6;
+  color: #7B3F00;
+}
+
+.nav-item-link.active {
+  background-color: #7B3F00;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Updated Logout Button Styles to match DeliveryDashboard.css */
+.logout-btn {
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #EF4444;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+}
+
+/* Main Content Styles */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  position: relative;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 32px;
+  border-bottom: 2px solid #402101;
+  margin-bottom: 32px;
+}
+
+.header-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #402101;
+}
+
+.welcome-message {
+  font-size: 1.125rem;
+  color: #402101;
+}
+
+.welcome-message span {
+  font-weight: 600;
+  color: #7B3F00;
+}
+
+/* Table Container */
+.history-table-container {
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  margin-top: 16px;
+  /* This is the key property for horizontal scrolling */
+  overflow-x: auto;
+}
+
+.history-table {
+  /* This forces the table to be wider than its container */
+  min-width: 1200px;
+  border-collapse: collapse;
+}
+
+.table-th {
+  background-color: #f3f4f6;
+  padding: 12px 24px;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #402101;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #402101;
+  white-space: nowrap;
+}
+
+.table-td {
+  padding: 16px 24px;
+  font-size: 0.875rem;
+  color: #4b5563;
+  border-bottom: 1px solid #402101;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-td-bold {
+  font-weight: 600;
+  color: #402101;
+}
+
+.table-row:last-child .table-td {
+  border-bottom: none;
+}
+
+.table-row:hover {
+  background-color: rgba(243, 244, 246, 0.5);
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+/* Specific status badge colors */
+.status-badge.delivered {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+/* Other UI elements */
+.alert-message {
+  background-color: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.loading-message, .empty-message {
+  text-align: center;
+  padding: 2rem;
+  color: #4b5563;
+}

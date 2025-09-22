@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import './DeliveryHistory.css';
 
 // Mock data to simulate the PHP backend's output
 const mockDeliveryHistory:DeliveryRecord[] = [
@@ -81,24 +82,24 @@ const DeliveryHistoryPage = () => {
     const loggedInUsername = "Delivery Person"; // This would come from a real authentication context
 
     return (
-        <div className="flex min-h-screen font-inter">
+        <div className="delivery-history-container">
             {/* Sidebar */}
-            <aside className="w-64 bg-white shadow-md h-screen p-6">
-                <div className="text-2xl font-bold text-gray-800 mb-8">Delivery Panel</div>
+            <aside className="sidebar">
+                <div className="delivery-panel-title">Delivery Panel</div>
                 <nav>
-                    <ul className="space-y-2">
+                    <ul>
                         <li>
-                            <a href="/delivery/delivery-dashboard" className="nav-link rounded-lg">
+                            <a href="/delivery/delivery-dashboard" className="nav-item-link">
                                 Assigned Deliveries
                             </a>
                         </li>
                         <li>
-                            <a href="/delivery/delivery-history" className="nav-link rounded-lg active">
+                            <a href="/delivery/delivery-history" className="nav-item-link active">
                                 Delivery History
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="nav-link rounded-lg text-red-600 hover:bg-red-100 hover:text-red-700">
+                            <a href="#" className="logout-btn">
                                 Logout
                             </a>
                         </li>
@@ -107,63 +108,61 @@ const DeliveryHistoryPage = () => {
             </aside>
 
             {/* Main Content */}
-            <div className="flex-1 p-10 bg-gray-100">
-                <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
-                    <h1 className="text-4xl font-extrabold text-gray-900">Delivery History</h1>
-                    <div className="text-lg text-gray-700">
-                        Welcome, <span className="font-semibold text-indigo-600">{loggedInUsername}!</span>
+            <div className="main-content">
+                <header className="main-header">
+                    <h1 className="header-title">Delivery History</h1>
+                    <div className="welcome-message">
+                        Welcome, <span>{loggedInUsername}!</span>
                     </div>
                 </header>
 
                 {error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative mb-6" role="alert">
-                        <strong className="font-bold">Error!</strong>
+                    <div className="alert-message" role="alert">
+                        <strong>Error!</strong>
                         <span className="block sm:inline ml-2">{error}</span>
                     </div>
                 )}
 
-                <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                <div className="history-table-container">
                     {isLoading ? (
-                        <p className="p-6 text-center text-gray-600">Loading delivery history...</p>
+                        <p className="loading-message">Loading delivery history...</p>
                     ) : deliveryHistory.length === 0 ? (
-                        <p className="p-6 text-center text-gray-600">No completed deliveries in your history yet.</p>
+                        <p className="empty-message">No completed deliveries in your history yet.</p>
                     ) : (
-                        <div className="overflow-x-auto">
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
+                        <table className="history-table">
+                            <thead className="table-header">
                                     <tr>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order Date</th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shop Name</th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shop Address</th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items Summary</th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Amount</th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expected Delivery</th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actual Delivery Date</th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th scope="col" className="table-th">Order ID</th>
+                                        <th scope="col" className="table-th">Order Date</th>
+                                        <th scope="col" className="table-th">Shop Name</th>
+                                        <th scope="col" className="table-th">Shop Address</th>
+                                        <th scope="col" className="table-th">Items Summary</th>
+                                        <th scope="col" className="table-th">Total Amount</th>
+                                        <th scope="col" className="table-th">Expected Delivery</th>
+                                        <th scope="col" className="table-th">Actual Delivery Date</th>
+                                        <th scope="col" className="table-th">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {deliveryHistory.map((delivery, index) => (
-                                        <tr key={delivery.order_id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{delivery.order_id}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{new Date(delivery.order_date).toLocaleString()}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{delivery.shop_name}</td>
-                                            <td className="px-6 py-4 text-sm text-gray-600 max-w-xs overflow-hidden text-ellipsis">{delivery.shop_address}</td>
-                                            <td className="px-6 py-4 text-sm text-gray-600 max-w-xs overflow-hidden text-ellipsis">{delivery.order_items_summary || 'N/A'}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">${delivery.total_amount.toFixed(2)}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{delivery.expected_delivery_date}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{new Date(delivery.order_date).toLocaleString()}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                                <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    {delivery.status}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                                <tbody>
+                                {deliveryHistory.map((delivery, index) => (
+                                    <tr key={delivery.order_id} className="table-row">
+                                        <td className="table-td">{delivery.order_id}</td>
+                                        <td className="table-td">{new Date(delivery.order_date).toLocaleString()}</td>
+                                        <td className="table-td">{delivery.shop_name}</td>
+                                        <td className="table-td">{delivery.shop_address}</td>
+                                        <td className="table-td">{delivery.order_items_summary || 'N/A'}</td>
+                                        <td className="table-td">${delivery.total_amount.toFixed(2)}</td>
+                                        <td className="table-td">{delivery.expected_delivery_date}</td>
+                                        <td className="table-td">{new Date(delivery.order_date).toLocaleString()}</td>
+                                        <td className="table-td">
+                                            <span className="status-badge delivered">
+                                                {delivery.status}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     )}
                 </div>
             </div>
