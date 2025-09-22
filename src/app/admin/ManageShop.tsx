@@ -96,13 +96,13 @@ const ManageShops = () => {
   
   // Navigation Links
   const navLinks = [
-    { name: 'Dashboard', href: '/admin/dashboard' },
+    { name: 'Dashboard', href: '/admin/admin-dashboard' },
     { name: 'Manage Shops', href: '/admin/manage-shops', active: true },
     { name: 'Manage Delivery People', href: '/admin/add-delivery-person' },
     { name: 'View All Orders', href: '/admin/view-all-orders' },
-    { name: 'Reports', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Logout', href: '#', isLogout: true },
+    { name: 'Reports', href: '/admin/report' },
+    { name: 'Settings', href: '/admin/setting' },
+    { name: 'Logout', href: '/Login', isLogout: true },
   ];
 
   return (
