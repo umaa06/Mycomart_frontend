@@ -40,9 +40,9 @@ const mockDeliveryHistory = [
 ];
 
 const DeliveryHistoryPage = () => {
-    const [deliveryHistory, setDeliveryHistory] = useState([]);
+    const [deliveryHistory, setDeliveryHistory] = useState<DeliveryRecord[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
 
     // Simulate fetching data on component mount
     useEffect(() => {

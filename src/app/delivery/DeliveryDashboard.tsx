@@ -1,56 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-// Initialize Firebase and get service instances at the top level.
-// This ensures they are created only once per application load.
-const appId = typeof window.__app_id !== 'undefined' ? window.__app_id : 'default-app-id';
-const firebaseConfig = typeof window.__firebase_config !== 'undefined' ? JSON.parse(window.__firebase_config) : {};
-const initialAuthToken = typeof window.__initial_auth_token !== 'undefined' ? window.__initial_auth_token : null;
-
-// Initialize Firebase app and services
-const app = window.firebaseApp.initializeApp(firebaseConfig);
-const auth = window.firebaseAuth.getAuth(app);
-const db = window.firebaseFirestore.getFirestore(app);
-
-// Enable Firestore debug logging
-window.firebaseFirestore.setLogLevel('debug');
 
 const DeliveryDashboard = () => {
-  const [assignedDeliveries, setAssignedDeliveries] = useState([]);
-  const [availableOrders, setAvailableOrders] = useState([]);
+  const [assignedDeliveries, setAssignedDeliveries] = useState<DeliveryRecord[]>([]);
+  const [availableOrders, setAvailableOrders] = useState<DeliveryRecord[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [userId, setUserId] = useState(null);
-  const [isAuthReady, setIsAuthReady] = useState(false);
   
-  // Use useEffect to handle asynchronous authentication state changes.
-  useEffect(() => {
-    // Attempt to sign in with a custom token if available
-    if (initialAuthToken) {
-      window.firebaseAuth.signInWithCustomToken(auth, initialAuthToken).catch(error => {
-        console.error("Firebase sign-in with custom token failed:", error);
-        // Fallback to anonymous sign-in on failure
-        window.firebaseAuth.signInAnonymously(auth);
-      });
-    } else {
-      // Sign in anonymously if no custom token is available
-      window.firebaseAuth.signInAnonymously(auth);
-    }
-    
-    // Set up the auth state change listener
-    const unsubscribe = window.firebaseAuth.onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserId(user.uid);
-      }
-      setIsAuthReady(true);
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   useEffect(() => {
-    if (!isAuthReady || !userId) return;
 
-    const mockOrders = [
+    const mockOrders:DeliveryRecord[] = [
       {
         order_id: 101,
         order_date: '2023-10-26T10:00:00',
@@ -60,7 +20,8 @@ const DeliveryDashboard = () => {
         shop_name: 'Green Grocers',
         shop_address: '123 Forest Path, Woodland',
         order_items_summary: '2x Shiitake, 1x Oyster',
-        delivery_person_id: null
+        delivery_person_id: null,
+        delivery_date: null,
       },
       {
         order_id: 102,
@@ -71,7 +32,8 @@ const DeliveryDashboard = () => {
         shop_name: 'Mushroom Market',
         shop_address: '456 Hill Street, Meadowville',
         order_items_summary: '5x Cremini, 3x Portobello',
-        delivery_person_id: userId
+        delivery_person_id: 123,
+        delivery_date: null,
       },
       {
         order_id: 103,
@@ -82,7 +44,8 @@ const DeliveryDashboard = () => {
         shop_name: 'Fungi Friends',
         shop_address: '789 Grove Avenue, Green Acres',
         order_items_summary: '1x Truffle',
-        delivery_person_id: userId
+        delivery_person_id: 547,
+        delivery_date: null,
       },
       {
         order_id: 104,
@@ -93,17 +56,18 @@ const DeliveryDashboard = () => {
         shop_name: 'Shop C',
         shop_address: '101 Pine Road, Woodville',
         order_items_summary: '4x Lion\'s Mane',
-        delivery_person_id: null
+        delivery_person_id: null,
+        delivery_date: null,
       },
     ];
 
-    const assigned = mockOrders.filter(order => order.delivery_person_id === userId);
-    const available = mockOrders.filter(order => order.status === 'Admin Confirmed' && !order.delivery_person_id);
+    const assigned:DeliveryRecord[] = mockOrders.filter(order => order.delivery_person_id === 104);
+    const available:DeliveryRecord[] = mockOrders.filter(order => order.status === 'Admin Confirmed' && !order.delivery_person_id);
     
     setAssignedDeliveries(assigned);
     setAvailableOrders(available);
 
-  }, [isAuthReady, userId]);
+  }, [userId]);
 
   const handleLogout = () => {
     setSuccessMessage('Logging out...');
@@ -114,7 +78,7 @@ const DeliveryDashboard = () => {
     }, 2000);
   };
 
-  const handleAcceptOrder = (orderId) => {
+  const handleAcceptOrder = (orderId: number) => {
     setAvailableOrders(availableOrders.filter(order => order.order_id !== orderId));
     
     const acceptedOrder = mockOrders.find(order => order.order_id === orderId);
