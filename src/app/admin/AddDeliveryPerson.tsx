@@ -218,7 +218,7 @@ const AddDeliveryPersonForm = () => {
         <nav>
           <ul className="nav-list">
             <li className="nav-item">
-              <Link href="/admin/dashboard" className="nav-link">
+              <Link href="/admin/admin-dashboard" className="nav-link">
                 Dashboard
               </Link>
             </li>
@@ -243,7 +243,7 @@ const AddDeliveryPersonForm = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="/admin/settings" className="nav-link">
+              <Link href="/admin/setting" className="nav-link">
                 Settings
               </Link>
             </li>

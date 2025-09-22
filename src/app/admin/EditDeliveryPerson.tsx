@@ -58,12 +58,12 @@ const updateDeliveryPersonData = (id: string, formData: any) => {
 };
 
 const navItems = [
-  { href: '/admin/AdminDashboard', label: 'Dashboard', active: false },
-  { href: '/admin/Addshop', label: 'Manage Shops', active: false },
-  { href: '/admin/ManageDeliveryPerson', label: 'Manage Delivery People', active: true },
-  { href: '/admin/ViewAllORders', label: 'View All Orders', active: false },
-  { href: '/admin/Reports', label: 'Reports', active: false },
-  { href: '/admin/Settings', label: 'Settings', active: false },
+  { href: '/admin/admin-dashboard', label: 'Dashboard', active: false },
+  { href: '/admin/add-shop', label: 'Manage Shops', active: false },
+  { href: '/admin/magage-delivery-person', label: 'Manage Delivery People', active: true },
+  { href: '/admin/view-all-orders', label: 'View All Orders', active: false },
+  { href: '/admin/report', label: 'Reports', active: false },
+  { href: '/admin/setting', label: 'Settings', active: false },
 ];
 
 export default function EditDeliveryPerson() {

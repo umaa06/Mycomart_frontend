@@ -175,12 +175,12 @@ const AddShopForm = () => {
   };
 
   const navItems = [
-        { href: '/admin/AdminDashboard', label: 'Dashboard', active: false },
-        { href: '/admin/Addshop', label: 'Manage Shops', active: true },
-        { href: '/admin/ManageDeliveryPerson', label: 'Manage Delivery People', active: false },
-        { href: '/admin/ViewAllORders', label: 'View All Orders', active: false },
-        { href: '/admin/Reports', label: 'Reports', active: false },
-        { href: '/admin/Settings', label: 'Settings', active: false },
+        { href: '/admin/admin-dashboard', label: 'Dashboard', active: false },
+        { href: '/admin/add-shop', label: 'Manage Shops', active: true },
+        { href: '/admin/Manage-delivery-people', label: 'Manage Delivery People', active: false },
+        { href: '/admin/view-all-orders', label: 'View All Orders', active: false },
+        { href: '/admin/report', label: 'Reports', active: false },
+        { href: '/admin/setting', label: 'Settings', active: false },
     ];
     
   return (
