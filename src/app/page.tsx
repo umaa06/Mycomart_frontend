@@ -1,5 +1,5 @@
 "use client";
-import AdminDashboard from "./admin/AdminDashboard";
+import DeliveryHistory from "./delivery/DeliveryHistory";
 import Login from "./login/Login";
 import ViewAllOrders from "./admin/ViewAllOrders";
 import Settings from "./admin/Settings";
@@ -12,7 +12,7 @@ export default function Home() {
   if(isTest){
     return (
       <div>
-       <AdminDashboard/>
+       <DeliveryHistory/>
        </div>)
        }
   return (

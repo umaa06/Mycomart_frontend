@@ -141,7 +141,7 @@ const ManageShops = () => {
           {/* Header */}
           <header className="flex justify-between items-center mb-8">
             <h1 className="text-4xl font-extrabold text-gray-900">Manage Shops</h1>
-            <a href="#" className="inline-block px-6 py-3 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            <a href="/admin/add-shop" className="inline-block px-6 py-3 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
               Register New Shop
             </a>
           </header>
