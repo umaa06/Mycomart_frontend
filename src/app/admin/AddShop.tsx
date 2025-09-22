@@ -118,6 +118,7 @@ const AddShopForm = () => {
         password: formData.password
       };
 
+      
       await dashboardService.registerShop(shopData);
       // Call your Spring Boot API endpoint
       const response = await fetch('http://localhost:8080/api/admin/shops', {
