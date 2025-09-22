@@ -44,8 +44,8 @@ const AdminReportsPage = () => {
                     <ul className="space-y-2">
                         <li><a href="/admin/admin-dashboard" className="nav-link rounded-lg">Dashboard</a></li>
                         <li><a href="/admin/manage-shops" className="nav-link rounded-lg">Manage Shops</a></li>
-                        <li><a href="/admin/manage_delivery_people" className="nav-link rounded-lg">Manage Delivery People</a></li>
-                        <li><a href="/admin/view_all_orders" className="nav-link rounded-lg">View All Orders</a></li>
+                        <li><a href="/admin/manage-delivery-people" className="nav-link rounded-lg">Manage Delivery People</a></li>
+                        <li><a href="/admin/view-all-orders" className="nav-link rounded-lg">View All Orders</a></li>
                         <li><a href="/admin/reports" className="nav-link rounded-lg active">Reports</a></li>
                         <li><a href="/admin/settings" className="nav-link rounded-lg">Settings</a></li>
                         <li>
