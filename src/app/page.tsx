@@ -6,6 +6,9 @@ import Setting from "./admin/Setting";
 import AddDeliveryPersonform from "./admin/AddDeliveryPerson";
 import ReportPage from "./admin/report/page";
 import UpdateDailyAvailability from "./admin/UpdateDailyAvailability";
+import EditDeliveryPerson from "./admin/EditDeliveryPerson";
+import AdminDashboard from "./admin/AdminDashboard";
+import AddShopForm from "./admin/AddShop";
 
 
 export default function Home() {
@@ -13,7 +16,7 @@ export default function Home() {
   if(isTest){
     return (
       <div>
-       <UpdateDailyAvailability/>
+       <AdminDashboard/>
        </div>)
        }
   return (
