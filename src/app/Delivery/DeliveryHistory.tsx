@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 // Mock data to simulate the PHP backend's output
-const mockDeliveryHistory = [
+const mockDeliveryHistory:DeliveryRecord[] = [
     {
         order_id: 101,
         order_date: '2025-09-18 10:30:00',
@@ -14,6 +14,7 @@ const mockDeliveryHistory = [
         shop_name: 'Mushroom Mania',
         shop_address: '456 Fungi Rd, Forestville',
         order_items_summary: '2x Portobello, 1x Shiitake',
+        delivery_person_id: null,
     },
     {
         order_id: 102,
@@ -25,6 +26,7 @@ const mockDeliveryHistory = [
         shop_name: 'Fresh Harvest',
         shop_address: '789 Green St, Meadow Creek',
         order_items_summary: '1x Oyster Mushroom, 3x Chanterelle',
+        delivery_person_id: null,
     },
     {
         order_id: 103,
@@ -36,13 +38,14 @@ const mockDeliveryHistory = [
         shop_name: 'Gourmet Fungi',
         shop_address: '101 Truffle Lane, Truffleton',
         order_items_summary: '4x Truffle Oil, 2x Morel Mushrooms',
+        delivery_person_id: null,
     },
 ];
 
 const DeliveryHistoryPage = () => {
-    const [deliveryHistory, setDeliveryHistory] = useState([]);
+    const [deliveryHistory, setDeliveryHistory] = useState<DeliveryRecord[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
 
     // Simulate fetching data on component mount
     useEffect(() => {
@@ -150,7 +153,7 @@ const DeliveryHistoryPage = () => {
                                             <td className="px-6 py-4 text-sm text-gray-600 max-w-xs overflow-hidden text-ellipsis">{delivery.order_items_summary || 'N/A'}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">${delivery.total_amount.toFixed(2)}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{delivery.expected_delivery_date}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{new Date(delivery.delivery_date).toLocaleString()}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{new Date(delivery.order_date).toLocaleString()}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm">
                                                 <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                     {delivery.status}

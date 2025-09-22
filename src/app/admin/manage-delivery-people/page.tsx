@@ -1,4 +1,4 @@
-import ManageDeliveryPeople from "./ManageDeliveryPeople";
+import ManageDeliveryPeople from "../ManageDeliveryPeople";
 
 export default function ManageDeliveryPeoplePage(){
     return(

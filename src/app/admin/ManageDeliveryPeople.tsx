@@ -154,13 +154,13 @@ export default function ManageDeliveryPeople() {
         <div className="text-2xl font-bold text-gray-800 mb-8">Admin Panel</div>
         <nav>
           <ul className="space-y-2">
-            <li><a href="dashboard.php" className="nav-link">Dashboard</a></li>
-            <li><a href="manage_shops.php" className="nav-link">Manage Shops</a></li>
-            <li><a href="manage_delivery_people.php" className="nav-link active">Manage Delivery People</a></li>
-            <li><a href="view_all_orders.php" className="nav-link">View All Orders</a></li>
-            <li><a href="reports.php" className="nav-link">Reports</a></li>
-            <li><a href="settings.php" className="nav-link">Settings</a></li>
-            <li><a href="../auth/process_logout.php" className="nav-link text-red-600 hover:bg-red-100 hover:text-red-700">Logout</a></li>
+            <li><a href="/admin/admin-dashboard" className="nav-link">Dashboard</a></li>
+            <li><a href="/admin/manage-shops" className="nav-link">Manage Shops</a></li>
+            <li><a href="/admin/manage-delivery-people" className="nav-link active">Manage Delivery People</a></li>
+            <li><a href="/admin/view-all-orders" className="nav-link">View All Orders</a></li>
+            <li><a href="/admin/report" className="nav-link">Reports</a></li>
+            <li><a href="/admin/setting" className="nav-link">Settings</a></li>
+            <li><a href="/login" className="nav-link text-red-600 hover:bg-red-100 hover:text-red-700">Logout</a></li>
           </ul>
         </nav>
       </aside>
@@ -168,7 +168,7 @@ export default function ManageDeliveryPeople() {
       <div className="flex-1 p-10">
         <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
           <h1 className="text-4xl font-extrabold text-gray-900">Manage Delivery People</h1>
-          <a href="add_delivery_person.php" className="add-button">
+          <a href="admin/add-delivery-person" className="add-button">
             Add New Delivery Person
           </a>
         </header>

@@ -1,9 +1,9 @@
-import AddDeliveryPersonForm from '../AddDeliveryPerson';
+import AddDeliveryPerson from "../AddDeliveryPerson";
 
 export default function AddDeliveryPersonPage(){
     return(
         <div>
-            <AddDeliveryPersonForm/>
+            <AddDeliveryPerson/>
         </div>
     )
 }

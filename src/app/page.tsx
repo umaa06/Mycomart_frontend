@@ -1,7 +1,6 @@
 "use client";
-import EditShop from "./admin/EditShop";
-import Login from "./login/Login";
 import AdminDashboard from "./admin/AdminDashboard";
+import Login from "./login/Login";
 import ViewAllOrders from "./admin/ViewAllOrders";
 import Settings from "./admin/Settings";
 import AddDeliveryPersonform from "./admin/AddDeliveryPerson";
@@ -13,7 +12,7 @@ export default function Home() {
   if(isTest){
     return (
       <div>
-       <EditShop/>
+       <AdminDashboard/>
        </div>)
        }
   return (
