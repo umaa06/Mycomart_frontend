@@ -1,12 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import './AddShop.css'; // Corrected: CSS file is now imported
-=======
 import {dashboardService} from '@/app/api/dashboardService';
->>>>>>> 17913f82d21836026f3a6d4b0d017f170bdf2903
 
 type FormData = {
   shopName: string;
@@ -120,12 +117,9 @@ const AddShopForm = () => {
         email: formData.email.trim(),
         password: formData.password
       };
-
-<<<<<<< HEAD
-=======
+      
       await dashboardService.registerShop(shopData);
       // Call your Spring Boot API endpoint
->>>>>>> 17913f82d21836026f3a6d4b0d017f170bdf2903
       const response = await fetch('http://localhost:8080/api/admin/shops', {
         method: 'POST',
         headers: {
