@@ -168,7 +168,7 @@ export default function ManageDeliveryPeople() {
       <div className="flex-1 p-10">
         <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
           <h1 className="text-4xl font-extrabold text-gray-900">Manage Delivery People</h1>
-          <a href="admin/add-delivery-person" className="add-button">
+          <a href="/admin/add-delivery-person" className="add-button">
             Add New Delivery Person
           </a>
         </header>
@@ -211,7 +211,7 @@ export default function ManageDeliveryPeople() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{person.dp_phone_number}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{person.license_number}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <a href={`edit_delivery_person.php?id=${person.delivery_person_id}`} className="action-button edit-button mr-2">Edit</a>
+                      <a href={`?id=${person.delivery_person_id}`} className="action-button edit-button mr-2">Edit</a>
                       <button onClick={() => handleDeleteClick(person)} className="action-button delete-button">
                         Delete
                       </button>

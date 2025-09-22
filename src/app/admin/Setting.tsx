@@ -87,14 +87,13 @@ const AdminSettings = () => {
         <div className="text-2xl font-bold mb-8">Admin Panel</div>
         <nav>
           <ul className="space-y-4">
-            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">Dashboard</a></li>
-            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">Manage Shops</a></li>
-            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">Manage Delivery People</a></li>
-            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">View All Orders</a></li>
-            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">Reports</a></li>
-            <li><a href="#" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">Customer Ratings</a></li>
-            <li><a href="#" className="block px-4 py-3 rounded-lg bg-[#EAE2CE] font-bold text-gray-900">Settings</a></li>
-            <li><a href="#" className="block px-4 py-3 rounded-lg text-red-600 hover:text-red-700 transition-colors duration-200">Logout</a></li>
+            <li><a href="/admin/admin-dashboard" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">Dashboard</a></li>
+            <li><a href="/admin/manage-shops" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">Manage Shops</a></li>
+            <li><a href="/admin/manage-delivery-people" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">Manage Delivery People</a></li>
+            <li><a href="/admin/view-all-orders" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">View All Orders</a></li>
+            <li><a href="/admin/report" className="block px-4 py-3 rounded-lg hover:bg-[#D5CDB5] transition-colors duration-200">Reports</a></li>
+            <li><a href="/admin/setting" className="block px-4 py-3 rounded-lg bg-[#EAE2CE] font-bold text-gray-900">Settings</a></li>
+            <li><a href="/login" className="block px-4 py-3 rounded-lg text-red-600 hover:text-red-700 transition-colors duration-200">Logout</a></li>
           </ul>
         </nav>
       </aside>
