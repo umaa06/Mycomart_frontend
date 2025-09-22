@@ -100,8 +100,8 @@ const ManageShops = () => {
     { name: 'Manage Shops', href: '/admin/manage-shops', active: true },
     { name: 'Manage Delivery People', href: '/admin/add-delivery-person' },
     { name: 'View All Orders', href: '/admin/view-all-orders' },
-    { name: 'Reports', href: '#' },
-    { name: 'Settings', href: '#' },
+    { name: 'Reports', href: '/admin/report' },
+    { name: 'Settings', href: '/admin/setting' },
     { name: 'Logout', href: '#', isLogout: true },
   ];
 
