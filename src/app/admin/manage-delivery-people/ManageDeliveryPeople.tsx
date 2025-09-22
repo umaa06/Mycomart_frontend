@@ -55,6 +55,9 @@ const deleteDeliveryPerson = (id: string) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const index = MOCK_DB.findIndex(p => p.delivery_person_id === id);
+    });
+  });
+}
 export default function ManageDeliveryPeople() {
   const [deliveryPeople, setDeliveryPeople] = useState<DeliveryPerson[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -91,7 +94,7 @@ export default function ManageDeliveryPeople() {
     setSuccessMessage('');
 
     try {
-      const result = await deleteDeliveryPerson(personToDelete.delivery_person_id);
+      const result:any = await deleteDeliveryPerson(personToDelete.delivery_person_id);
       if (result.success) {
         setSuccessMessage('delivery person deleted successfully!');
         setDeliveryPeople(prevPeople =>
