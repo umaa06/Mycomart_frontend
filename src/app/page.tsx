@@ -9,7 +9,7 @@ export default function Home() {
   if(isTest){
     return (
       <div>
-       <DeliveryHistoryPage/>
+       <ShopDashboard/>
        </div>)
        }
   return (
