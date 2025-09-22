@@ -4,7 +4,7 @@ import Login from "./login/Login";
 import ViewAllOrders from "./admin/ViewAllOrders";
 import Settings from "./admin/Settings";
 import AddDeliveryPersonform from "./admin/AddDeliveryPerson";
-import AddShopForm from "./admin/AddShop";
+import ReportPage from "./admin/report/page";
 
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
   if(isTest){
     return (
       <div>
-       <DeliveryHistory/>
+       <Settings/>
        </div>)
        }
   return (
