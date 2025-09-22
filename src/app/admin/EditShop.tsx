@@ -144,8 +144,8 @@ export default function EditShop() {
     };
 
     const navItems = [
-        { href: '/admin/AdminDashboard', label: 'Dashboard', active: false },
-        { href: '/admin/ManageShops', label: 'Manage Shops', active: true },
+        { href: '/admin/admin-dashboard', label: 'Dashboard', active: false },
+        { href: '/admin/manage-shops', label: 'Manage Shops', active: true },
         { href: '/admin/ManageDeliveryPerson', label: 'Manage Delivery People', active: false },
         { href: '/admin/ViewAllORders', label: 'View All Orders', active: false },
         { href: '/admin/Reports', label: 'Reports', active: false },
@@ -210,7 +210,7 @@ export default function EditShop() {
             <div className="main-content-area">
                 <header className="page-header">
                     <h1 className="page-title">Edit Shop: {shopData?.shop_name ?? 'N/A'}</h1>
-                    <Link href="/admin/ManageShops" className="back-button">
+                    <Link href="/admin/manage-shops" className="back-button">
                         Back to Manage Shops
                     </Link>
                 </header>
