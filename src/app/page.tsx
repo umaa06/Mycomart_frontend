@@ -1,6 +1,6 @@
 "use client";
-import AdminDashboard from "./admin/AdminDashboard";
 import Login from "./login/Login";
+import ShopDashboard from "./shops/ShopDashboard";
 
 
 export default function Home() {
@@ -8,7 +8,7 @@ export default function Home() {
   if(isTest){
     return (
       <div>
-       <AdminDashboard/>
+       <ShopDashboard/>
        </div>)
        }
   return (
