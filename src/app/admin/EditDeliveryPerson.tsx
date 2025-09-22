@@ -1,5 +1,10 @@
+// EditDeliveryPerson.tsx
 'use client';
+
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import './EditDeliveryPerson.css';
 
 // Mock database and API calls to simulate a real backend.
 type DeliveryPerson = {
@@ -31,7 +36,7 @@ const fetchDeliveryPersonData = (id: string) => {
       if (data) {
         resolve(data);
       } else {
-        reject(new Error('delivery person not found.'));
+        reject(new Error('Delivery person not found.'));
       }
     }, 500); // Simulate network delay
   });
@@ -52,7 +57,17 @@ const updateDeliveryPersonData = (id: string, formData: any) => {
   });
 };
 
-export default function App() {
+const navItems = [
+  { href: '/admin/AdminDashboard', label: 'Dashboard', active: false },
+  { href: '/admin/Addshop', label: 'Manage Shops', active: false },
+  { href: '/admin/ManageDeliveryPerson', label: 'Manage Delivery People', active: true },
+  { href: '/admin/ViewAllORders', label: 'View All Orders', active: false },
+  { href: '/admin/Reports', label: 'Reports', active: false },
+  { href: '/admin/Settings', label: 'Settings', active: false },
+];
+
+export default function EditDeliveryPerson() {
+  const router = useRouter();
   const [deliveryPersonData, setDeliveryPersonData] = useState<DeliveryPerson | null>(null);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -67,8 +82,8 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Simulating the delivery_person_id from the URL query parameter
-  const deliveryPersonId = '123'; 
+  // Simulating the delivery_person_id from a URL query parameter
+  const deliveryPersonId = '123';
 
   useEffect(() => {
     const loadData = async () => {
@@ -79,7 +94,7 @@ export default function App() {
       }
 
       try {
-        const data = await fetchDeliveryPersonData(deliveryPersonId) as DeliveryPerson;
+        const data = (await fetchDeliveryPersonData(deliveryPersonId)) as DeliveryPerson;
         setDeliveryPersonData(data);
         setFormData({
           fullName: data.dp_full_name,
@@ -106,7 +121,7 @@ export default function App() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -120,10 +135,10 @@ export default function App() {
     }
 
     try {
-      const result = await updateDeliveryPersonData(deliveryPersonId, formData) as { success: boolean };
-      
+      const result = (await updateDeliveryPersonData(deliveryPersonId, formData)) as { success: boolean };
+
       if (result.success) {
-        setSuccessMessage('delivery person details updated successfully!');
+        setSuccessMessage('Delivery person details updated successfully!');
       } else {
         setErrorMessage('An error occurred while updating the delivery person. Please try again.');
       }
@@ -136,79 +151,66 @@ export default function App() {
     }
   };
 
+  const handleLogout = () => {
+    // Implement your logout logic here
+    router.push('/');
+  };
+
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gray-100">
-        <div className="text-xl font-medium text-gray-700">Loading...</div>
+      <div className="edit-dashboard-container">
+        <div className="main-content">
+          <div className="flex justify-center items-center h-full">
+            <div className="text-xl font-medium text-gray-700">Loading...</div>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen">
-      <script src="https://cdn.tailwindcss.com"></script>
-      <style>{`
-        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
-        .nav-link { display: block; padding: 0.75rem 1rem; color: #374151; border-radius: 0.5rem; transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; }
-        .nav-link:hover { background-color: #e0e7ff; color: #4f46e5; }
-        .nav-link.active { background-color: #4f46e5; color: #ffffff; font-weight: 600; }
-        .form-container { background-color: #ffffff; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 2.5rem; max-width: 48rem; width: 90%; margin: 0 auto; }
-        .input-field { border: 1px solid #d1d5db; border-radius: 0.5rem; padding: 0.75rem 1rem; width: 100%; transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
-        .input-field:focus { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); }
-        .submit-button { background-color: #6b7280; /* Gray-500 */
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            width: 100%;
-            transition: background-color 0.2s ease-in-out;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-        .submit-button:hover { background-color: #1d4ed8; }
-        .back-button { background-color: #6b7280; /* Gray-500 */
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            width: 100%;
-            transition: background-color 0.2s ease-in-out;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-        .back-button:hover { background-color: #4b5563; }
-      `}</style>
-
-      <aside className="w-64 bg-white shadow-md h-screen p-6">
-        <div className="text-2xl font-bold text-gray-800 mb-8">Admin Panel</div>
+    <div className="edit-dashboard-container">
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <div className="admin-panel-title">Admin Panel</div>
         <nav>
-          <ul className="space-y-2">
-            <li><a href="dashboard.php" className="nav-link">Dashboard</a></li>
-            <li><a href="manage_shops.php" className="nav-link">Manage Shops</a></li>
-            <li><a href="manage_delivery_people.php" className="nav-link active">Manage Delivery People</a></li>
-            <li><a href="view_all_orders.php" className="nav-link">View All Orders</a></li>
-            <li><a href="reports.php" className="nav-link">Reports</a></li>
-            <li><a href="settings.php" className="nav-link">Settings</a></li>
-            <li><a href="../auth/process_logout.php" className="nav-link text-red-600 hover:bg-red-100 hover:text-red-700">Logout</a></li>
+          <ul className="nav-list">
+            {navItems.map((item) => (
+              <li key={item.href} className="nav-item">
+                <Link href={item.href} className={`nav-link ${item.active ? 'active' : ''}`}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <button onClick={handleLogout} className="logout-btn">
+                Logout
+              </button>
+            </li>
           </ul>
         </nav>
       </aside>
 
-      <div className="flex-1 p-10">
-        <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
-          <h1 className="text-4xl font-extrabold text-gray-900">Edit Delivery Person: {deliveryPersonData?.dp_full_name ?? 'N/A'}</h1>
-          <a href="#" className="back-button w-auto px-6 py-3">
+      {/* Main Content */}
+      <div className="main-content">
+        <header className="content-header">
+          <h1 className="header-title">Edit Delivery Person: {deliveryPersonData?.dp_full_name ?? 'N/A'}</h1>
+          <Link href="/admin/ManageDeliveryPerson" className="back-button">
             Back to Manage Delivery People
-          </a>
+          </Link>
         </header>
 
         {errorMessage && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative mb-6" role="alert">
-            <strong className="font-bold">Error!</strong>
-            <span className="block sm:inline">{errorMessage}</span>
+          <div className="error-message message" role="alert">
+            <strong>Error!</strong>{' '}
+            <span>{errorMessage}</span>
           </div>
         )}
 
         {successMessage && (
-          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg relative mb-6" role="alert">
-            <strong className="font-bold">Success!</strong>
-            <span className="block sm:inline">{successMessage}</span>
+          <div className="success-message message" role="alert">
+            <strong>Success!</strong>{' '}
+            <span>{successMessage}</span>
           </div>
         )}
 
@@ -217,96 +219,43 @@ export default function App() {
             <input type="hidden" name="delivery_person_id" value={deliveryPersonData?.delivery_person_id ?? ''} />
             <input type="hidden" name="user_id" value={deliveryPersonData?.user_id ?? ''} />
 
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Delivery Person Details</h2>
-            <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">Full Name:</label>
-              <input
-                type="text"
-                id="fullName"
-                name="fullName"
-                required
-                className="input-field"
-                value={formData.fullName}
-                onChange={handleInputChange}
-              />
+            <h2 className="form-section-title">Delivery Person Details</h2>
+            <div className="form-group">
+              <label htmlFor="fullName">Full Name:</label>
+              <input type="text" id="fullName" name="fullName" required className="input-field" value={formData.fullName} onChange={handleInputChange} />
             </div>
-            <div>
-              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">Phone Number:</label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                required
-                className="input-field"
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-              />
+            <div className="form-group">
+              <label htmlFor="phoneNumber">Phone Number:</label>
+              <input type="tel" id="phoneNumber" name="phoneNumber" required className="input-field" value={formData.phoneNumber} onChange={handleInputChange} />
             </div>
-            <div>
-              <label htmlFor="licenseNumber" className="block text-sm font-medium text-gray-700 mb-1">License Number (Optional):</label>
-              <input
-                type="text"
-                id="licenseNumber"
-                name="licenseNumber"
-                className="input-field"
-                value={formData.licenseNumber}
-                onChange={handleInputChange}
-              />
+            <div className="form-group">
+              <label htmlFor="licenseNumber">License Number (Optional):</label>
+              <input type="text" id="licenseNumber" name="licenseNumber" className="input-field" value={formData.licenseNumber} onChange={handleInputChange} />
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-4 pt-6 border-t border-gray-200">Login Credentials</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Username:</label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  required
-                  className="input-field"
-                  value={formData.username}
-                  onChange={handleInputChange}
-                />
+            <h2 className="form-section-title">Login Credentials</h2>
+            <div className="form-grid">
+              <div className="form-group">
+                <label htmlFor="username">Username:</label>
+                <input type="text" id="username" name="username" required className="input-field" value={formData.username} onChange={handleInputChange} />
               </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address:</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  className="input-field"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
+              <div className="form-group">
+                <label htmlFor="email">Email Address:</label>
+                <input type="email" id="email" name="email" required className="input-field" value={formData.email} onChange={handleInputChange} />
               </div>
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-4 pt-6 border-t border-gray-200">Change Password (Optional)</h2>
-            <p className="text-gray-600 text-sm mb-4">Leave password fields blank if you don't want to change the password.</p>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">New Password:</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="input-field"
-                placeholder="Enter new password (optional)"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirm New Password:</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                className="input-field"
-                placeholder="Confirm new password"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-              />
+            <h2 className="form-section-title">Change Password (Optional)</h2>
+            <p className="password-note">Leave password fields blank if you don't want to change the password.</p>
+            <div className="form-grid">
+              <div className="form-group">
+                <label htmlFor="password">New Password:</label>
+                <input type="password" id="password" name="password" className="input-field" placeholder="Enter new password (optional)" value={formData.password} onChange={handleInputChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirm New Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" className="input-field" placeholder="Confirm new password" value={formData.confirmPassword} onChange={handleInputChange} />
+              </div>
             </div>
 
             <div>
