@@ -1,7 +1,8 @@
 "use client";
 import AdminDashboard from "./admin/AdminDashboard";
 import Login from "./login/Login";
-import ManageDeliveryPeople from "./admin/ManageDeliveryPeople";
+import ManageShops from "./admin/ManageShop";
+import ViewAllOrders from "./admin/ViewAllOrders";
 
 
 export default function Home() {
@@ -9,7 +10,7 @@ export default function Home() {
   if(isTest){
     return (
       <div>
-       <ManageDeliveryPeople/>
+       <ManageShops/>
        </div>)
        }
   return (
