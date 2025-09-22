@@ -6,11 +6,11 @@ import './AdminSettings.css';
 
 // This is a mock data object to simulate what would be fetched from a database.
 const mockSettings = {
-    default_delivery_charge: 5.50,
-    business_name: 'The Mushroom Emporium',
-    business_address: '101 Fungi Lane, Mycotopia, 12345',
-    business_phone: '+1 (555) 123-4567',
-    business_email: 'info@mushroomemporium.com'
+    default_delivery_charge: '',
+    business_name: '',
+    business_address: '',
+    business_phone: '',
+    business_email: ''
 };
 
 const AdminSettings = () => {
