@@ -1,7 +1,11 @@
-"use client"; 
+"use client";
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import './AddDeliveryPerson.css';
 
 const AddDeliveryPersonForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
@@ -15,6 +19,7 @@ const AddDeliveryPersonForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
   type ValidationErrors = {
     fullName?: string;
     phoneNumber?: string;
@@ -24,6 +29,7 @@ const AddDeliveryPersonForm = () => {
     password?: string;
     confirmPassword?: string;
   };
+
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
   // Check if user is authenticated and is admin
@@ -201,50 +207,50 @@ const AddDeliveryPersonForm = () => {
   };
 
   const handleBackToManage = () => {
-    window.location.href = '/admin/manage-delivery-people';
+    router.push('/admin/manage-delivery-people');
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <div className="dashboard-container">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md h-screen p-6">
-        <div className="text-2xl font-bold text-gray-800 mb-8">Admin Panel</div>
+      <aside className="sidebar">
+        <div className="admin-panel-title">Admin Panel</div>
         <nav>
-          <ul className="space-y-2">
-            <li>
-              <a href="/admin/dashboard" className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-600 transition-colors">
+          <ul className="nav-list">
+            <li className="nav-item">
+              <Link href="/admin/dashboard" className="nav-link">
                 Dashboard
-              </a>
+              </Link>
             </li>
-            <li>
-              <a href="/admin/manage-shops" className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-600 transition-colors">
+            <li className="nav-item">
+              <Link href="/admin/manage-shops" className="nav-link">
                 Manage Shops
-              </a>
+              </Link>
             </li>
-            <li>
-              <a href="/admin/manage-delivery-people" className="block px-3 py-2 rounded-lg bg-indigo-600 text-white font-semibold">
+            <li className="nav-item">
+              <Link href="/admin/manage-delivery-people" className="nav-link active">
                 Manage Delivery People
-              </a>
+              </Link>
             </li>
-            <li>
-              <a href="/admin/view-all-orders" className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-600 transition-colors">
+            <li className="nav-item">
+              <Link href="/admin/view-all-orders" className="nav-link">
                 View All Orders
-              </a>
+              </Link>
             </li>
-            <li>
-              <a href="/admin/reports" className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-600 transition-colors">
+            <li className="nav-item">
+              <Link href="/admin/reports" className="nav-link">
                 Reports
-              </a>
+              </Link>
             </li>
-            <li>
-              <a href="/admin/settings" className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-600 transition-colors">
+            <li className="nav-item">
+              <Link href="/admin/settings" className="nav-link">
                 Settings
-              </a>
+              </Link>
             </li>
             <li>
-              <button 
-                onClick={() => window.location.href = '/admin/login'}
-                className="block w-full text-left px-3 py-2 rounded-lg text-red-600 hover:bg-red-100 hover:text-red-700 transition-colors"
+              <button
+                onClick={() => router.push('/admin/login')}
+                className="logout-btn"
               >
                 Logout
               </button>
@@ -254,216 +260,201 @@ const AddDeliveryPersonForm = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 p-10">
-        {/* Header */}
-        <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
-          <h1 className="text-4xl font-extrabold text-gray-900">Add New Delivery Person</h1>
-          <button
-            onClick={handleBackToManage}
-            className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-lg shadow hover:bg-gray-600 transition-colors"
-          >
-            Back to Manage Delivery People
-          </button>
-        </header>
+      <div className="main-content">
+        <div className="content-wrapper">
+          {/* Header */}
+          <header className="dashboard-header">
+            <h1 className="header-title">Add New Delivery Person</h1>
+            <button
+              onClick={handleBackToManage}
+              className="back-btn"
+            >
+              Back to Manage Delivery People
+            </button>
+          </header>
 
-        {/* Error Message */}
-        {errorMessage && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6" role="alert">
-            <strong className="font-bold">Error!</strong>
-            <span className="block sm:inline ml-2">{errorMessage}</span>
-          </div>
-        )}
-
-        {/* Success Message */}
-        {successMessage && (
-          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6" role="alert">
-            <strong className="font-bold">Success!</strong>
-            <span className="block sm:inline ml-2">{successMessage}</span>
-          </div>
-        )}
-
-        {/* Form Container */}
-        <div className="bg-white rounded-xl shadow-lg p-10 max-w-4xl mx-auto">
-          <div className="space-y-6">
-            {/* delivery Person Details Section */}
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Delivery Person Details</h2>
-            
-            {/* Full Name */}
-            <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
-                Full Name <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                id="fullName"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleInputChange}
-                className={`w-full border rounded-lg shadow-sm py-3 px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
-                  validationErrors.fullName ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="e.g., Shen Fernando"
-                disabled={isSubmitting}
-              />
-              {validationErrors.fullName && (
-                <p className="mt-1 text-sm text-red-600">{validationErrors.fullName}</p>
-              )}
+          {/* Error Message */}
+          {errorMessage && (
+            <div className="error-message" role="alert">
+              <strong>Error!</strong>
+              <span>{errorMessage}</span>
             </div>
+          )}
 
-            {/* Phone Number */}
-            <div>
-              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
-                Phone Number <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-                className={`w-full border rounded-lg shadow-sm py-3 px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
-                  validationErrors.phoneNumber ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="e.g., 0719202241"
-                disabled={isSubmitting}
-              />
-              {validationErrors.phoneNumber && (
-                <p className="mt-1 text-sm text-red-600">{validationErrors.phoneNumber}</p>
-              )}
+          {/* Success Message */}
+          {successMessage && (
+            <div className="success-message" role="alert">
+              <strong>Success!</strong>
+              <span>{successMessage}</span>
             </div>
+          )}
 
-            {/* License Number */}
-            <div>
-              <label htmlFor="licenseNumber" className="block text-sm font-medium text-gray-700 mb-2">
-                License Number <span className="text-gray-500">(Optional)</span>
-              </label>
-              <input
-                type="text"
-                id="licenseNumber"
-                name="licenseNumber"
-                value={formData.licenseNumber}
-                onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg shadow-sm py-3 px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="e.g., DL1234567"
-                disabled={isSubmitting}
-              />
-            </div>
-
-            {/* PasswordReset Credentials Section */}
-            <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-4 pt-6 border-t border-gray-200">Login Credentials</h2>
-            
-            {/* Username and Email */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Form Container */}
+          <div className="form-container">
+            <form className="form-layout" onSubmit={handleSubmit}>
+              {/* Delivery Person Details Section */}
+              <h2 className="form-section-title">Delivery Person Details</h2>
+              
+              {/* Full Name */}
               <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
-                  Username <span className="text-red-500">*</span>
+                <label htmlFor="fullName" className="form-label">
+                  Full Name <span className="required-star">*</span>
                 </label>
                 <input
                   type="text"
-                  id="username"
-                  name="username"
-                  value={formData.username}
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
                   onChange={handleInputChange}
-                  className={`w-full border rounded-lg shadow-sm py-3 px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
-                    validationErrors.username ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="Unique login username"
+                  className={`form-input ${validationErrors.fullName ? 'input-error' : ''}`}
+                  placeholder="e.g., Shen Fernando"
                   disabled={isSubmitting}
                 />
-                {validationErrors.username && (
-                  <p className="mt-1 text-sm text-red-600">{validationErrors.username}</p>
+                {validationErrors.fullName && (
+                  <p className="validation-error">{validationErrors.fullName}</p>
                 )}
               </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className={`w-full border rounded-lg shadow-sm py-3 px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
-                    validationErrors.email ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="e.g., delivery@example.com"
-                  disabled={isSubmitting}
-                />
-                {validationErrors.email && (
-                  <p className="mt-1 text-sm text-red-600">{validationErrors.email}</p>
-                )}
-              </div>
-            </div>
 
-            {/* Password Fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Phone Number */}
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                  Temporary Password <span className="text-red-500">*</span>
+                <label htmlFor="phoneNumber" className="form-label">
+                  Phone Number <span className="required-star">*</span>
                 </label>
                 <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
                   onChange={handleInputChange}
-                  className={`w-full border rounded-lg shadow-sm py-3 px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
-                    validationErrors.password ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="Set initial password for the delivery person"
+                  className={`form-input ${validationErrors.phoneNumber ? 'input-error' : ''}`}
+                  placeholder="e.g., 0719202241"
                   disabled={isSubmitting}
                 />
-                {validationErrors.password && (
-                  <p className="mt-1 text-sm text-red-600">{validationErrors.password}</p>
+                {validationErrors.phoneNumber && (
+                  <p className="validation-error">{validationErrors.phoneNumber}</p>
                 )}
               </div>
-              
-              <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                  Confirm Password <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  className={`w-full border rounded-lg shadow-sm py-3 px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
-                    validationErrors.confirmPassword ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="Confirm the initial password"
-                  disabled={isSubmitting}
-                />
-                {validationErrors.confirmPassword && (
-                  <p className="mt-1 text-sm text-red-600">{validationErrors.confirmPassword}</p>
-                )}
-              </div>
-            </div>
 
-            {/* Submit Button */}
-            <div className="pt-6">
-              <button
-                type="button"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className={`w-full py-3 px-6 rounded-lg font-semibold shadow-lg transition-colors ${
-                  isSubmitting 
-                    ? 'bg-gray-400 cursor-not-allowed text-gray-700' 
-                    : 'bg-emerald-500 hover:bg-emerald-600 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500'
-                }`}
-              >
-                {isSubmitting ? (
-                  <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-                    Registering Delivery Person...
-                  </div>
-                ) : (
-                  'Register delivery Person'
-                )}
-              </button>
-            </div>
+              {/* License Number */}
+              <div>
+                <label htmlFor="licenseNumber" className="form-label">
+                  License Number <span className="optional-text">(Optional)</span>
+                </label>
+                <input
+                  type="text"
+                  id="licenseNumber"
+                  name="licenseNumber"
+                  value={formData.licenseNumber}
+                  onChange={handleInputChange}
+                  className="form-input"
+                  placeholder="e.g., DL1234567"
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              {/* Login Credentials Section */}
+              <h2 className="form-section-title separated-section">Login Credentials</h2>
+              
+              {/* Username and Email */}
+              <div className="grid-2-cols">
+                <div>
+                  <label htmlFor="username" className="form-label">
+                    Username <span className="required-star">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                    className={`form-input ${validationErrors.username ? 'input-error' : ''}`}
+                    placeholder="Unique login username"
+                    disabled={isSubmitting}
+                  />
+                  {validationErrors.username && (
+                    <p className="validation-error">{validationErrors.username}</p>
+                  )}
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="form-label">
+                    Email Address <span className="required-star">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`form-input ${validationErrors.email ? 'input-error' : ''}`}
+                    placeholder="e.g., delivery@example.com"
+                    disabled={isSubmitting}
+                  />
+                  {validationErrors.email && (
+                    <p className="validation-error">{validationErrors.email}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Password Fields */}
+              <div className="grid-2-cols">
+                <div>
+                  <label htmlFor="password" className="form-label">
+                    Temporary Password <span className="required-star">*</span>
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className={`form-input ${validationErrors.password ? 'input-error' : ''}`}
+                    placeholder="Set initial password for the delivery person"
+                    disabled={isSubmitting}
+                  />
+                  {validationErrors.password && (
+                    <p className="validation-error">{validationErrors.password}</p>
+                  )}
+                </div>
+                
+                <div>
+                  <label htmlFor="confirmPassword" className="form-label">
+                    Confirm Password <span className="required-star">*</span>
+                  </label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    className={`form-input ${validationErrors.confirmPassword ? 'input-error' : ''}`}
+                    placeholder="Confirm the initial password"
+                    disabled={isSubmitting}
+                  />
+                  {validationErrors.confirmPassword && (
+                    <p className="validation-error">{validationErrors.confirmPassword}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="submit-button-container">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`submit-btn ${isSubmitting ? 'submit-btn-disabled' : ''}`}
+                >
+                  {isSubmitting ? (
+                    <div className="loading-spinner">
+                      <div className="spinner"></div>
+                      <span>Registering Delivery Person...</span>
+                    </div>
+                  ) : (
+                    'Register Delivery Person'
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

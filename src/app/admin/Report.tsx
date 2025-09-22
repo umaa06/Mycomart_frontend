@@ -1,6 +1,7 @@
-"use client";
-
+'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import './Report.css';
 
 // Mock data to simulate the backend API response for total sales
 const mockTotalSalesData = [
@@ -35,21 +36,26 @@ const AdminReportsPage = () => {
         fetchData();
     }, []);
 
+    const handleLogout = () => {
+        // You'll implement the actual logout logic here, such as clearing user session data
+        console.log("Logging out...");
+    };
+
     return (
-        <div className="flex min-h-screen font-inter">
+        <div className="dashboard-container">
             {/* Sidebar */}
-            <aside className="w-64 bg-white shadow-md h-screen p-6">
-                <div className="text-2xl font-bold text-gray-800 mb-8">Admin Panel</div>
+            <aside className="sidebar">
+                <div className="admin-panel-title">Admin Panel</div>
                 <nav>
-                    <ul className="space-y-2">
-                        <li><a href="/admin/admin-dashboard" className="nav-link rounded-lg">Dashboard</a></li>
-                        <li><a href="/admin/manage-shops" className="nav-link rounded-lg">Manage Shops</a></li>
-                        <li><a href="/admin/manage-delivery-people" className="nav-link rounded-lg">Manage Delivery People</a></li>
-                        <li><a href="/admin/view-all-orders" className="nav-link rounded-lg">View All Orders</a></li>
-                        <li><a href="/admin/reports" className="nav-link rounded-lg active">Reports</a></li>
-                        <li><a href="/admin/settings" className="nav-link rounded-lg">Settings</a></li>
-                        <li>
-                            <a href="#" className="nav-link rounded-lg text-red-600 hover:bg-red-100 hover:text-red-700">
+                    <ul className="nav-list">
+                        <li className="nav-item"><Link href="/admin/admin-dashboard" className="nav-link">Dashboard</Link></li>
+                        <li className="nav-item"><Link href="/admin/manage-shops" className="nav-link">Manage Shops</Link></li>
+                        <li className="nav-item"><Link href="/admin/manage-delivery-people" className="nav-link">Manage Delivery People</Link></li>
+                        <li className="nav-item"><Link href="/admin/view-all-orders" className="nav-link">View All Orders</Link></li>
+                        <li className="nav-item"><Link href="/admin/reports" className="nav-link active">Reports</Link></li>
+                        <li className="nav-item"><Link href="/admin/settings" className="nav-link">Settings</Link></li>
+                        <li className="nav-item">
+                            <a href="#" onClick={handleLogout} className="logout-btn">
                                 Logout
                             </a>
                         </li>
@@ -58,66 +64,68 @@ const AdminReportsPage = () => {
             </aside>
 
             {/* Main Content */}
-            <div className="flex-1 p-10 bg-gray-100">
-                <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
-                    <h1 className="text-4xl font-extrabold text-gray-900">Reports</h1>
-                </header>
-
-                {error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative mb-6" role="alert">
-                        <strong className="font-bold">Error!</strong>
-                        <span className="block sm:inline ml-2">{error}</span>
-                    </div>
-                )}
-
-                {isLoading ? (
-                    <p className="p-6 text-center text-gray-600">Loading reports data...</p>
-                ) : (
-                    <>
-                        <section className="mb-10">
-                            <h2 className="text-2xl font-bold text-gray-800 mb-4">Total Sales Over Time</h2>
-                            <div className="report-card bg-white rounded-lg shadow-md p-6">
-                                {totalSalesOverTime.length === 0 ? (
-                                    <p className="text-center text-gray-600">No sales data available yet.</p>
-                                ) : (
-                                    <div className="overflow-x-auto">
-                                        <table className="min-w-full divide-y divide-gray-200">
-                                            <thead className="bg-gray-50 rounded-t-lg">
-                                                <tr>
-                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Month</th>
-                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Sales</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="divide-y divide-gray-200">
-                                                {totalSalesOverTime.map((data, index) => (
-                                                    <tr key={index} className="odd:bg-white even:bg-gray-50">
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{data.sales_month}</td>
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">${data.monthly_sales.toFixed(2)}</td>
+            <main className="main-content">
+                <div className="content-wrapper">
+                    <header className="dashboard-header">
+                        <h1 className="header-title">Reports</h1>
+                    </header>
+    
+                    {error && (
+                        <div className="error-message" role="alert">
+                            <strong className="error-title">Error!</strong>
+                            <span className="error-text">{error}</span>
+                        </div>
+                    )}
+    
+                    {isLoading ? (
+                        <p className="loading-text">Loading reports data...</p>
+                    ) : (
+                        <>
+                            <section className="report-section">
+                                <h2 className="report-section-title">Total Sales Over Time</h2>
+                                <div className="report-card">
+                                    {totalSalesOverTime.length === 0 ? (
+                                        <p className="coming-soon-text">No sales data available yet.</p>
+                                    ) : (
+                                        <div className="table-responsive">
+                                            <table className="report-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th className="table-header">Month</th>
+                                                        <th className="table-header">Total Sales</th>
                                                     </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                )}
-                            </div>
-                        </section>
-
-                        <section className="mb-10">
-                            <h2 className="text-2xl font-bold text-gray-800 mb-4">Sales by Shop (Coming Soon)</h2>
-                            <div className="report-card bg-white rounded-lg shadow-md p-6">
-                                <p className="text-center text-gray-600">This section will display sales performance per shop.</p>
-                            </div>
-                        </section>
-
-                        <section>
-                            <h2 className="text-2xl font-bold text-gray-800 mb-4">Deliveries per Delivery Person (Coming Soon)</h2>
-                            <div className="report-card bg-white rounded-lg shadow-md p-6">
-                                <p className="text-center text-gray-600">This section will show delivery metrics for each delivery person.</p>
-                            </div>
-                        </section>
-                    </>
-                )}
-            </div>
+                                                </thead>
+                                                <tbody>
+                                                    {totalSalesOverTime.map((data, index) => (
+                                                        <tr key={index} className="table-row">
+                                                            <td className="table-data">{data.sales_month}</td>
+                                                            <td className="table-data">${data.monthly_sales.toFixed(2)}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    )}
+                                </div>
+                            </section>
+    
+                            <section className="report-section">
+                                <h2 className="report-section-title">Sales by Shop (Coming Soon)</h2>
+                                <div className="report-card">
+                                    <p className="coming-soon-text">This section will display sales performance per shop.</p>
+                                </div>
+                            </section>
+    
+                            <section className="report-section">
+                                <h2 className="report-section-title">Deliveries per Delivery Person (Coming Soon)</h2>
+                                <div className="report-card">
+                                    <p className="coming-soon-text">This section will show delivery metrics for each delivery person.</p>
+                                </div>
+                            </section>
+                        </>
+                    )}
+                </div>
+            </main>
         </div>
     );
 };

@@ -1,0 +1,304 @@
+/* Import the same font as the dashboard */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* Custom Fonts and Basic Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Layout - Same as AdminDashboard */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-image: url('/dashboard.jpg'); /* This is the background for the whole page */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Semi-transparent overlay for the whole container - Same as AdminDashboard */
+.dashboard-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(230, 203, 169, 0.6); /* Semi-transparent overlay */
+    z-index: 0;
+}
+
+/* Sidebar Styles - Same as AdminDashboard */
+.sidebar {
+    width: 256px; /* w-64 */
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent light brown */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+    padding: 24px; /* p-6 */
+    z-index: 1; /* Ensure sidebar is above the overlay */
+}
+
+.admin-panel-title {
+    font-size: 2rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    color: #402101; /* dark grey */
+    margin-bottom: 32px; /* mb-8 */
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item a {
+    display: block;
+    padding: 20px 16px; /* px-4 py-3 */
+    border-radius: 8px; /* rounded-lg */
+    transition: all 0.2s;
+    color: #402101;
+}
+
+.nav-item a:hover {
+    background-color: #E6E6E6;
+    color: #7B3F00;
+}
+
+.nav-link.active {
+    background-color: #7B3F00; /* Custom dark brown from image */
+    color: #fff;
+    font-weight: 600; /* font-semibold */
+}
+
+.logout-btn {
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #EF4444; /* red-600 */
+    transition: all 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #FEE2E2; /* red-100 */
+    color: #B91C1C; /* red-700 */
+}
+
+/* Main Content Styles - Same as AdminDashboard */
+.main-content {
+    flex: 1;
+    padding: 40px; /* p-10 */
+    position: relative;
+    z-index: 1; /* Ensure main content is above the overlay */
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 32px; /* pb-8 */
+    border-bottom: 2px solid #402101; /* border-b */
+    margin-bottom: 32px; /* mb-8 */
+}
+
+.header-title {
+    font-size: 2.5rem; /* text-4xl */
+    font-weight: 800; /* font-extrabold */
+    color: #402101; /* gray-900 */
+}
+
+.back-btn {
+    padding: 12px 24px;
+    background-color: #7B3F00; /* gray-500 */
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    transition-property: background-color, color, box-shadow;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    background-color: #402101; /* gray-600 */
+}
+
+
+/* Form specific styles */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+    max-width: 64rem;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #402101;
+}
+
+.form-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #402101;
+    margin-bottom: 1rem;
+}
+
+.separated-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #E5E7EB;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    border: 1px solid #D1D5DB;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    padding: 0.75rem 1rem;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.form-input:focus {
+    border-color: #402101;
+    box-shadow: 0 0 0 2px rgba(230, 203, 169, 0.6);
+}
+
+.form-input.input-error {
+    border-color: #EF4444;
+}
+
+.validation-error {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #DC2626;
+}
+
+.required-star {
+    color: #DC2626;
+}
+
+.optional-text {
+    color: #6B7280;
+}
+
+.grid-2-cols {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .grid-2-cols {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Submit button and loading spinner */
+.submit-button-container {
+    padding-top: 1.5rem;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+    background-color: #7B3F00; /* emerald-500 */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #402101; /* emerald-600 */
+}
+
+.submit-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(230, 203, 169, 0.6);
+}
+
+.submit-btn-disabled {
+    background-color: #9CA3AF; /* gray-400 */
+    color: #4B5563; /* gray-700 */
+    cursor: not-allowed;
+}
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    margin-right: 0.75rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Message Alerts */
+.error-message {
+    background-color: #FEE2E2; /* red-100 */
+    border: 1px solid #FCA5A5; /* red-400 */
+    color: #B91C1C; /* red-700 */
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.success-message {
+    background-color: #D1FAE5; /* green-100 */
+    border: 1px solid #6EE7B7; /* green-400 */
+    color: #065F46; /* green-700 */
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.error-message strong, .success-message strong {
+    font-weight: 700;
+}
+
+.error-message span, .success-message span {
+    display: inline;
+    margin-left: 0.5rem;
+}
