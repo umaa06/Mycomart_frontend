@@ -11,3 +11,13 @@ type DeliveryRecord = {
     delivery_person_id: number | null;
     
 }
+type DeliveryPerson = {
+    id: string;
+    user_id: string;
+    full_name: string;
+    phone_number: string;
+    license_number: string;
+    userName: string;
+    email: string;
+    password: string;
+};

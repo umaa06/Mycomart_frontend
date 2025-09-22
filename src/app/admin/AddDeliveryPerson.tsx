@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import './AddDeliveryPerson.css';
+import {dashboardService} from '@/app/api/dashboardService';
 
 const AddDeliveryPersonForm = () => {
   const router = useRouter();
@@ -139,57 +140,40 @@ const AddDeliveryPersonForm = () => {
 
     try {
       // Prepare data for Spring Boot API
-      const deliveryPersonData = {
+      const deliveryPersonData:DeliveryPerson = {
         fullName: formData.fullName.trim(),
         phoneNumber: formData.phoneNumber.trim(),
         licenseNumber: formData.licenseNumber.trim() || null,
-        username: formData.username.trim(),
+        userName: formData.username.trim(),
         email: formData.email.trim(),
         password: formData.password,
-        vehicleDetails: '' // You might want to add this field later
+        vehicleDetails: ''
       };
 
       // Call your Spring Boot API endpoint
-      const response = await fetch('http://localhost:8080/api/admin/delivery-people', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Add authorization if needed
-          // 'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        },
-        body: JSON.stringify(deliveryPersonData)
-      });
 
-      if (!response.ok) {
-        const errorData = await response.text();
-        
-        // Handle specific error cases
-        if (response.status === 409) {
-          if (errorData.includes('username')) {
-            throw new Error('The chosen username already exists. Please choose a different one.');
-          } else if (errorData.includes('email')) {
-            throw new Error('The email address is already registered. Please use a different one.');
-          }
-        }
-        
-        throw new Error(errorData || `HTTP error! status: ${response.status}`);
+      const response = await dashboardService.addDeliveryPerson(deliveryPersonData);
+
+      if (response.status !== 200) {
+        const errorData = response.message;
+        setErrorMessage(errorData);
+      } else{
+        // Success
+        setSuccessMessage('New delivery person registered successfully!');
+
+        // Clear form
+        setFormData({
+          fullName: '',
+          phoneNumber: '',
+          licenseNumber: '',
+          username: '',
+          email: '',
+          password: '',
+          confirmPassword: ''
+        });
       }
 
-      const result = await response.json();
 
-      // Success
-      setSuccessMessage('New delivery person registered successfully!');
-      
-      // Clear form
-      setFormData({
-        fullName: '',
-        phoneNumber: '',
-        licenseNumber: '',
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      });
 
       // Scroll to top to show success message
       window.scrollTo({ top: 0, behavior: 'smooth' });
