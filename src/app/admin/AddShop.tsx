@@ -117,6 +117,7 @@ const AddShopForm = () => {
         email: formData.email.trim(),
         password: formData.password
       };
+
       
       await dashboardService.registerShop(shopData);
       // Call your Spring Boot API endpoint
