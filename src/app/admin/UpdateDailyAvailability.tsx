@@ -84,12 +84,11 @@ const UpdateDailyAvailability = () => {
         <nav>
           <ul className="nav-list">
               <li className="nav-item"><a href="/admin/admin-dashboard" className="nav-link">Dashboard</a></li>
-              <li className="nav-item"><a href="#" className="nav-link">Manage Shops</a></li>
-              <li className="nav-item"><a href="#" className="nav-link">Manage Delivery People</a></li>
-              <li className="nav-item"><a href="#" className="nav-link">View All Orders</a></li>
-              <li className="nav-item"><a href="#" className="nav-link">Reports</a></li>
-              <li className="nav-item"><a href="#" className="nav-link">Customer Ratings</a></li>
-              <li className="nav-item"><a href="#" className="nav-link active">Settings</a></li>
+              <li className="nav-item"><a href="/admin/manage-shops" className="nav-link">Manage Shops</a></li>
+              <li className="nav-item"><a href="/admin/manage-delivery-people" className="nav-link">Manage Delivery People</a></li>
+              <li className="nav-item"><a href="/admin/view-all-orders" className="nav-link">View All Orders</a></li>
+              <li className="nav-item"><a href="/admin/report" className="nav-link">Reports</a></li>
+              <li className="nav-item"><a href="/admin/setting" className="nav-link active">Settings</a></li>
               <li className="nav-item">
                 <button className="logout-btn">
                   Logout
