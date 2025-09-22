@@ -1,13 +1,14 @@
 "use client";
+import Report from "./admin/Report";
 import Login from "./login/Login";
-import UpdateDailyAvailability from "./admin/update-daily-availability /page";
+
 
 export default function Home() {
   const isTest =true;
   if(isTest){
     return (
       <div>
-       <UpdateDailyAvailability/>
+       <Report/>
        </div>)
        }
   return (
