@@ -101,7 +101,7 @@ export default function Login() {
         )}
         {successMessage && (
             <div
-                className="bg-red-100 border border-green-300 text-green-600 px-4 py-3 rounded-lg mb-6"
+                className="bg-green-100 border border-green-300 text-green-600 px-4 py-3 rounded-lg mb-6"
                 role="alert"
             >
               <strong className="font-bold">Success! </strong>

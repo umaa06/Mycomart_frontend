@@ -7,24 +7,16 @@ import { useRouter } from 'next/navigation';
 import './EditDeliveryPerson.css';
 
 // Mock database and API calls to simulate a real backend.
-type DeliveryPerson = {
-  delivery_person_id: string;
-  user_id: string;
-  dp_full_name: string;
-  dp_phone_number: string;
-  license_number: string;
-  username: string;
-  email: string;
-};
+
 
 const MOCK_DB: { [key: string]: DeliveryPerson } = {
   '123': {
-    delivery_person_id: '123',
+    id: '123',
     user_id: 'user_001',
-    dp_full_name: 'Anduni',
-    dp_phone_number: '0759821545',
+    full_name: 'Anduni',
+    phone_number: '0759821545',
     license_number: 'DL1234',
-    username: 'anduni',
+    userName: 'anduni',
     email: 'anduni@gmail.com',
   },
 };
@@ -97,10 +89,10 @@ export default function EditDeliveryPerson() {
         const data = (await fetchDeliveryPersonData(deliveryPersonId)) as DeliveryPerson;
         setDeliveryPersonData(data);
         setFormData({
-          fullName: data.dp_full_name,
-          phoneNumber: data.dp_phone_number,
+          fullName: data.full_name,
+          phoneNumber: data.phone_number,
           licenseNumber: data.license_number,
-          username: data.username,
+          username: data.userName,
           email: data.email,
           password: '',
           confirmPassword: '',
@@ -194,7 +186,7 @@ export default function EditDeliveryPerson() {
       {/* Main Content */}
       <div className="main-content">
         <header className="content-header">
-          <h1 className="header-title">Edit Delivery Person: {deliveryPersonData?.dp_full_name ?? 'N/A'}</h1>
+          <h1 className="header-title">Edit Delivery Person: {deliveryPersonData?.full_name ?? 'N/A'}</h1>
           <Link href="/admin/ManageDeliveryPerson" className="back-button">
             Back to Manage Delivery People
           </Link>
@@ -216,7 +208,7 @@ export default function EditDeliveryPerson() {
 
         <div className="form-container">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <input type="hidden" name="delivery_person_id" value={deliveryPersonData?.delivery_person_id ?? ''} />
+            <input type="hidden" name="delivery_person_id" value={deliveryPersonData?.id ?? ''} />
             <input type="hidden" name="user_id" value={deliveryPersonData?.user_id ?? ''} />
 
             <h2 className="form-section-title">Delivery Person Details</h2>

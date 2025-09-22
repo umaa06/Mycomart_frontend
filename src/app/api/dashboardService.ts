@@ -15,4 +15,7 @@ export const dashboardService = {
     } ) {
         return api.post<{ message: string, status: number }>('/register-shop', shopData);
     },
+    addDeliveryPerson( deliveryPersonData: DeliveryPerson){
+        return api.post<{ message: string, status: number }>('/add-delivery-person', deliveryPersonData);
+    }
 }

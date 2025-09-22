@@ -127,24 +127,25 @@ const AddShopForm = () => {
       
       const response = await dashboardService.registerShop(shopData);
 
-      if (!response.ok) {
+      if (response.status != 200) {
         setErrorMessage(response.message);
       } else{
 
         setSuccessMessage('Shop registered successfully!');
 
+        setFormData({
+          shopName: '',
+          contactPerson: '',
+          address: '',
+          phoneNumber: '',
+          username: '',
+          email: '',
+          password: '',
+          confirmPassword: ''
+        });
+
       }
 
-      setFormData({
-        shopName: '',
-        contactPerson: '',
-        address: '',
-        phoneNumber: '',
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      });
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -167,7 +168,7 @@ const AddShopForm = () => {
   const navItems = [
         { href: '/admin/admin-dashboard', label: 'Dashboard', active: false },
         { href: '/admin/add-shop', label: 'Manage Shops', active: true },
-        { href: '/admin/Manage-delivery-people', label: 'Manage Delivery People', active: false },
+        { href: '/admin/manage-delivery-people', label: 'Manage Delivery People', active: false },
         { href: '/admin/view-all-orders', label: 'View All Orders', active: false },
         { href: '/admin/report', label: 'Reports', active: false },
         { href: '/admin/setting', label: 'Settings', active: false },
