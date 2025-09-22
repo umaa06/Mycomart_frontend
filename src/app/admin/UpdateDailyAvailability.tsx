@@ -83,7 +83,7 @@ const UpdateDailyAvailability = () => {
         <div className="admin-panel-title">Admin Panel</div>
         <nav>
           <ul className="nav-list">
-              <li className="nav-item"><a href="/admin/dashboard" className="nav-link">Dashboard</a></li>
+              <li className="nav-item"><a href="/admin/admin-dashboard" className="nav-link">Dashboard</a></li>
               <li className="nav-item"><a href="#" className="nav-link">Manage Shops</a></li>
               <li className="nav-item"><a href="#" className="nav-link">Manage Delivery People</a></li>
               <li className="nav-item"><a href="#" className="nav-link">View All Orders</a></li>

@@ -13,6 +13,6 @@ export const dashboardService = {
         email: string;
         password: string
     } ) {
-        return api.post<{ token: string, status: number }>('/register-shop', shopData);
+        return api.post<{ message: string, status: number }>('/register-shop', shopData);
     },
 }

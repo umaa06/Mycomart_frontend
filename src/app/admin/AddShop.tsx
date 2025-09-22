@@ -125,26 +125,16 @@ const AddShopForm = () => {
       };
 
       
-      await dashboardService.registerShop(shopData);
-      // Call your Spring Boot API endpoint
-      const response = await fetch('http://localhost:8080/api/admin/shops', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        },
-        body: JSON.stringify(shopData)
-      });
+      const response = await dashboardService.registerShop(shopData);
 
       if (!response.ok) {
-        const errorData = await response.text();
-        throw new Error(errorData || `HTTP error! status: ${response.status}`);
+        setErrorMessage(response.message);
+      } else{
+
+        setSuccessMessage('Shop registered successfully!');
+
       }
 
-      await response.json();
-
-      setSuccessMessage('Shop registered successfully!');
-      
       setFormData({
         shopName: '',
         contactPerson: '',

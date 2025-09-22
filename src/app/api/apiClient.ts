@@ -38,7 +38,7 @@ export async function apiClient<T>(
             const errorData = await response.json().catch(() => ({}));
             throw {
                 status: response.status,
-                message: errorData.message || 'Request failed',
+                message: errorData.message,
                 data: errorData
             };
         }
