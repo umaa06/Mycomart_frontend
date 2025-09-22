@@ -52,8 +52,8 @@ const AdminReportsPage = () => {
                         <li className="nav-item"><Link href="/admin/manage-shops" className="nav-link">Manage Shops</Link></li>
                         <li className="nav-item"><Link href="/admin/manage-delivery-people" className="nav-link">Manage Delivery People</Link></li>
                         <li className="nav-item"><Link href="/admin/view-all-orders" className="nav-link">View All Orders</Link></li>
-                        <li className="nav-item"><Link href="/admin/reports" className="nav-link active">Reports</Link></li>
-                        <li className="nav-item"><Link href="/admin/settings" className="nav-link">Settings</Link></li>
+                        <li className="nav-item"><Link href="/admin/report" className="nav-link active">Reports</Link></li>
+                        <li className="nav-item"><Link href="/admin/setting" className="nav-link">Settings</Link></li>
                         <li className="nav-item">
                             <a href="#" onClick={handleLogout} className="logout-btn">
                                 Logout
