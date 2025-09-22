@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import './AddShop.css'; // Corrected: CSS file is now imported
 import {dashboardService} from '@/app/api/dashboardService';
+import {authService} from '@/app/api/authService';
 
 type FormData = {
   shopName: string;
@@ -35,6 +36,11 @@ const AddShopForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
+  const handleLogout = () => {
+    authService.logout().then(r => {
+      router.push('/');
+    }).catch(ra=>{router.push('/')});
+  };
 
   // Check if user is authenticated and is admin
   useEffect(() => {
@@ -196,7 +202,7 @@ const AddShopForm = () => {
                         ))}
                         <li>
                             <button
-                                // onClick={handleLogout} // Assumes logout function is available
+                                onClick={handleLogout} // Assumes logout function is available
                                 className="logout-btn"
                             >
                                 Logout
