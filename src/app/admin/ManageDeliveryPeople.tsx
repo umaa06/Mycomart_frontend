@@ -55,7 +55,7 @@ const deleteDeliveryPerson = (id: string) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const index = MOCK_DB.findIndex(p => p.delivery_person_id === id);
-export default function App() {
+export default function ManageDeliveryPeople() {
   const [deliveryPeople, setDeliveryPeople] = useState<DeliveryPerson[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
