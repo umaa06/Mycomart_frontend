@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import './DeliveryDashboard.css';
 
 // Mock data to simulate fetching from a backend API.
 // In a real application, this data would come from an API call.
@@ -83,18 +84,11 @@ const App = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F0EAD6] font-sans">
+    <div className="delivery-dashboard-container">
       <SidePanel activePage={activePage} setActivePage={setActivePage} />
-      <main className="flex-1 p-8 relative">
-        <div className="absolute top-8 right-8 text-black text-sm">
+      <main className="main-content">
+        <div className="welcome-message">
           Welcome Deliver
-        </div>
-        <div className="absolute inset-0 z-0 overflow-hidden rounded-xl">
-          <img
-            src="https://placehold.co/1200x800/EAD8B4/000000?text=Background+Image"
-            alt="Background of various mushrooms"
-            className="w-full h-full object-cover opacity-20"
-          />
         </div>
         <div className="relative z-10">
           {renderContent()}
@@ -114,20 +108,20 @@ const App = () => {
 
 // Confirmation Modal component to replace browser's native alert/confirm.
 const ConfirmationModal = ({ title, message, onConfirm, onCancel }) => (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto">
-      <h3 className="text-xl font-bold mb-4">{title}</h3>
-      <p className="text-gray-600 mb-6">{message}</p>
-      <div className="flex justify-end space-x-4">
+  <div className="modal-overlay">
+    <div className="modal-content">
+      <h3 className="modal-title">{title}</h3>
+      <p className="modal-message">{message}</p>
+      <div className="modal-actions">
         <button
           onClick={onCancel}
-          className="px-4 py-2 rounded-lg bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors"
+          className="modal-button cancel"
         >
           Cancel
         </button>
         <button
           onClick={onConfirm}
-          className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors"
+          className="modal-button confirm"
         >
           Confirm
         </button>
@@ -145,27 +139,23 @@ const SidePanel = ({ activePage, setActivePage }) => {
   ];
 
   return (
-    <nav className="w-64 bg-white bg-opacity-80 p-6 shadow-lg rounded-r-3xl">
-      <h2 className="text-2xl font-bold mb-8 text-[#5C4533]">Delivery Panel</h2>
+    <nav className="sidebar">
+      <h2 className="delivery-panel-title">Delivery Panel</h2>
       <ul>
         {navItems.map((item) => (
-          <li key={item} className="mb-4">
+          <li key={item} className="nav-item">
             <button
               onClick={() => setActivePage(item)}
-              className={`w-full text-left px-4 py-2 rounded-xl transition-colors duration-200 ease-in-out ${
-                activePage === item
-                  ? 'bg-[#EAD8B4] text-[#5C4533] font-bold shadow-md'
-                  : 'text-[#5C4533] hover:bg-gray-200'
-              }`}
+              className={`nav-item-button ${activePage === item ? 'active' : ''}`}
             >
               {item}
             </button>
           </li>
         ))}
-        <li className="mb-4 mt-8">
+        <li className="nav-item">
           <button
             onClick={() => setActivePage('Logout')}
-            className="w-full text-left px-4 py-2 rounded-xl text-red-500 hover:bg-red-100 transition-colors duration-200 ease-in-out font-bold"
+            className="logout-btn"
           >
             Logout
           </button>
@@ -179,23 +169,23 @@ const SidePanel = ({ activePage, setActivePage }) => {
 const DeliveryDashboardContent = ({ availableOrders, assignedDeliveries, onAcceptOrder, onMarkDelivered }) => {
   return (
     <>
-      <h1 className="text-4xl font-bold mb-8 text-[#5C4533]">Delivery Dashboard</h1>
-      <section className="mb-10">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Available Orders to Accept</h2>
+      <h1 className="dashboard-header">Delivery Dashboard</h1>
+      <section className="order-section">
+        <h2 className="section-title">Available Orders to Accept</h2>
         {availableOrders.length === 0 ? (
-          <div className="bg-white bg-opacity-80 p-6 rounded-3xl shadow-lg">
-            <p className="text-center text-gray-600 italic">No new orders are currently available for assignment.</p>
+          <div className="order-box">
+            <p className="empty-message">No new orders are currently available for assignment.</p>
           </div>
         ) : (
           <OrderTable orders={availableOrders} onAction={onAcceptOrder} actionLabel="Accept Order" />
         )}
       </section>
 
-      <section>
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Your Assigned Deliveries</h2>
+      <section className="order-section">
+        <h2 className="section-title">Your Assigned Deliveries</h2>
         {assignedDeliveries.length === 0 ? (
-          <div className="bg-white bg-opacity-80 p-6 rounded-3xl shadow-lg">
-            <p className="text-center text-gray-600 italic">No active deliveries assigned to you at this time.</p>
+          <div className="order-box">
+            <p className="empty-message">No active deliveries assigned to you at this time.</p>
           </div>
         ) : (
           <OrderTable orders={assignedDeliveries} onAction={onMarkDelivered} actionLabel="Mark Delivered" />
@@ -207,52 +197,54 @@ const DeliveryDashboardContent = ({ availableOrders, assignedDeliveries, onAccep
 
 // A reusable table component for orders.
 const OrderTable = ({ orders, onAction, actionLabel }) => (
-  <div className="bg-white shadow-md rounded-lg overflow-hidden">
-    <table className="min-w-full divide-y divide-gray-200">
-      <thead className="bg-gray-50">
-        <tr>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order Date</th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shop Name</th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items Summary</th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Amount</th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expected Delivery</th>
-          {actionLabel === 'Mark Delivered' && (
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-          )}
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-        </tr>
-      </thead>
-      <tbody className="bg-white divide-y divide-gray-200">
-        {orders.map((order) => (
-          <tr key={order.order_id}>
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.order_id}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{new Date(order.order_date).toLocaleDateString()}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{order.shop_name}</td>
-            <td className="px-6 py-4 text-sm text-gray-600 max-w-xs overflow-hidden text-ellipsis">{order.order_items_summary}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">${order.total_amount.toFixed(2)}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{order.expected_delivery_date}</td>
+  <div className="order-box">
+    <div className="order-table-container">
+      <table className="order-table">
+        <thead className="table-header">
+          <tr>
+            <th className="table-th">Order ID</th>
+            <th className="table-th">Order Date</th>
+            <th className="table-th">Shop Name</th>
+            <th className="table-th">Items Summary</th>
+            <th className="table-th">Total Amount</th>
+            <th className="table-th">Expected Delivery</th>
             {actionLabel === 'Mark Delivered' && (
-              <td className="px-6 py-4 whitespace-nowrap text-sm">
-                <span className="status-badge bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-semibold">{order.status}</span>
-              </td>
+              <th className="table-th">Status</th>
             )}
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-              <button
-                onClick={() => onAction(order)}
-                className={`inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                  actionLabel === 'Accept Order'
-                    ? 'bg-green-600 hover:bg-green-700 focus:ring-green-500'
-                    : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
-                }`}
-              >
-                {actionLabel}
-              </button>
-            </td>
+            <th className="table-th">Action</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order.order_id}>
+              <td className="table-td table-td-bold table-td-nowrap">{order.order_id}</td>
+              <td className="table-td table-td-nowrap">{new Date(order.order_date).toLocaleDateString()}</td>
+              <td className="table-td">{order.shop_name}</td>
+              <td className="table-td">{order.order_items_summary}</td>
+              <td className="table-td">${order.total_amount.toFixed(2)}</td>
+              <td className="table-td table-td-nowrap">{order.expected_delivery_date}</td>
+              {actionLabel === 'Mark Delivered' && (
+                <td className="table-td">
+                  <span className="status-badge bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-semibold">{order.status}</span>
+                </td>
+              )}
+              <td className="table-td">
+                <button
+                  onClick={() => onAction(order)}
+                  className={`action-button ${
+                    actionLabel === 'Accept Order'
+                      ? 'accept-button'
+                      : 'delivered-button'
+                  }`}
+                >
+                  {actionLabel}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </div>
 );
 
