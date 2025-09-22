@@ -52,6 +52,8 @@ export default function PasswordReset({token, email}:{token: string, email: stri
             var role:UserType = jwtPayloadJWTVerifyResult.payload.role as UserType;
             if(role === UserType.ADMIN){
               router.push("/admin");
+            } else if ( role === UserType.SHOP ) {
+                router.push("/shops");
             }
           } else {
             handleErrorMessage("Invalid login.");
