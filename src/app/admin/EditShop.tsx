@@ -177,7 +177,7 @@ export default function App() {
         <div className="text-2xl font-bold text-gray-800 mb-8">Admin Panel</div>
         <nav>
           <ul className="space-y-2">
-            <li><a href="/admin/admin-dashboard" className="nav-link">Dashboard</a></li>
+            <li><a href="admin/admin-dashboard" className="nav-link">Dashboard</a></li>
             <li><a href="admin/manage-shops" className="nav-link active">Manage Shops</a></li>
             <li><a href="admin/manage-delivery-people" className="nav-link">Manage Delivery People</a></li>
             <li><a href="admin/view-all-orders" className="nav-link">View All Orders</a></li>
