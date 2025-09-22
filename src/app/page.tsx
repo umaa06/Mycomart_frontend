@@ -1,11 +1,6 @@
 "use client";
-import DeliveryHistory from "./delivery/DeliveryHistory";
+import DeliveryDashboard from "./Delivery/DeliveryDashboard";
 import Login from "./login/Login";
-import ViewAllOrders from "./admin/ViewAllOrders";
-import Setting from "./admin/Setting";
-import AddDeliveryPersonform from "./admin/AddDeliveryPerson";
-import ReportPage from "./admin/report/page";
-import UpdateDailyAvailability from "./admin/UpdateDailyAvailability";
 
 
 export default function Home() {
@@ -13,7 +8,7 @@ export default function Home() {
   if(isTest){
     return (
       <div>
-       <UpdateDailyAvailability/>
+       <DeliveryDashboard/>
        </div>)
        }
   return (
