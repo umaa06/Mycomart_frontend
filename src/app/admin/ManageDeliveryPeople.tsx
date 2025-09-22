@@ -168,7 +168,7 @@ export default function ManageDeliveryPeople() {
       <div className="flex-1 p-10">
         <header className="flex justify-between items-center pb-8 border-b border-gray-200 mb-8">
           <h1 className="text-4xl font-extrabold text-gray-900">Manage Delivery People</h1>
-          <a href="add_delivery_person.php" className="add-button">
+          <a href="admin/add-delivery-person" className="add-button">
             Add New Delivery Person
           </a>
         </header>
