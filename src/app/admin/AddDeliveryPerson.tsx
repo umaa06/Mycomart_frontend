@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import './AddDeliveryPerson.css';
 import {dashboardService} from '@/app/api/dashboardService';
+import {authService} from '@/app/api/authService';
 
 const AddDeliveryPersonForm = () => {
   const router = useRouter();
@@ -233,7 +234,11 @@ const AddDeliveryPersonForm = () => {
             </li>
             <li>
               <button
-                onClick={() => router.push('/admin/login')}
+                onClick={() =>   {
+                  authService.logout().then(r => {
+                  router.push('/');
+                }).catch(ra=>{router.push('/')});
+                }}
                 className="logout-btn"
               >
                 Logout
