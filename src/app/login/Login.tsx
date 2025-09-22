@@ -57,6 +57,8 @@ export default function Login() {
               router.push("/admin");
             } else if(role === UserType.SHOP){
                 router.push("/shop");
+            } else if ( role === UserType.DELIVERY ) {
+                router.push("/delivery");
             }
           } else {
             handleErrorMessage("Invalid login.");
