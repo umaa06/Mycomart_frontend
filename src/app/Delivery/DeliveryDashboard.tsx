@@ -25,7 +25,7 @@ const MOCK_AVAILABLE_ORDERS = [
   },
 ];
 
-const App = () => {
+const DeliveryDash = () => {
   const [activePage, setActivePage] = useState('Dashboard');
   const [availableOrders, setAvailableOrders] = useState(MOCK_AVAILABLE_ORDERS);
   const [assignedDeliveries, setAssignedDeliveries] = useState([]);
@@ -248,4 +248,4 @@ const OrderTable = ({ orders, onAction, actionLabel }) => (
   </div>
 );
 
-export default App;
+export default DeliveryDash;
