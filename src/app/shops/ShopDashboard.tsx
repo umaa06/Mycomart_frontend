@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import './ShopDashboard.css';
+import '@/app/shops/ShopDashboard.css';
 import {authService} from '@/app/api/authService';
 import {useRouter} from 'next/navigation'; // Import the new CSS file
 
