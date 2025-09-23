@@ -5,6 +5,11 @@ import './ShopDashboard.css';
 import {authService} from '@/app/api/authService';
 import {useRouter} from 'next/navigation'; // Import the new CSS file
 
+type ShopData = {
+    shop_name: string;
+    previous_day_stock: number;
+    previous_day_sales: number;
+};
 // Mock data to simulate the backend API response
 const mockShopData = {
     shop_name: 'The Mushroom Emporium',
@@ -16,10 +21,10 @@ const mockTodayRequiredQuantity = 75;
 const loggedInUsername = "Shop Owner"; // In a real app, this would come from a user context
 
 const ShopDashboardPage = () => {
-    const [shopData, setShopData] = useState({});
-    const [todayRequiredQuantity, setTodayRequiredQuantity] = useState('N/A');
+    const [shopData, setShopData] = useState<ShopData>({previous_day_sales: 0, previous_day_stock: 0, shop_name: ''});
+    const [todayRequiredQuantity, setTodayRequiredQuantity] = useState<number>(null as unknown as number);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
     const router = useRouter();
 
     // Simulate fetching data on component mount
@@ -113,7 +118,7 @@ const ShopDashboardPage = () => {
                             </div>
                             <div className="dashboard-card">
                                 <h3>Today's Required Quantity</h3>
-                                <p className="metric-value metric-quantity">{todayRequiredQuantity}</p>
+                                <p className="metric-value metric-quantity">{todayRequiredQuantity===null?'N/A':todayRequiredQuantity}</p>
                             </div>
                         </section>
 
