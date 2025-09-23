@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import './ShopDashboard.css'; // Import the new CSS file
+import './ShopDashboard.css';
+import {authService} from '@/app/api/authService';
+import {useRouter} from 'next/navigation'; // Import the new CSS file
 
 // Mock data to simulate the backend API response
 const mockShopData = {
@@ -18,6 +20,7 @@ const ShopDashboardPage = () => {
     const [todayRequiredQuantity, setTodayRequiredQuantity] = useState('N/A');
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const router = useRouter();
 
     // Simulate fetching data on component mount
     useEffect(() => {
@@ -36,6 +39,12 @@ const ShopDashboardPage = () => {
 
         fetchData();
     }, []);
+
+    const handleLogout = () => {
+        authService.logout().then(r => {
+            router.push('/');
+        }).catch(ra=>{router.push('/')});
+    };
 
     return (
         <div className="shop-dashboard-container">
@@ -65,7 +74,7 @@ const ShopDashboardPage = () => {
                             </a>
                         </li>
                         <li>
-                            <a href="/" className="logout-btn">
+                            <a href="/" className="logout-btn" onClick={handleLogout}>
                                 Logout
                             </a>
                         </li>
