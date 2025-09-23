@@ -56,7 +56,7 @@ export default function Login() {
             if(role === UserType.ADMIN){
               router.push("/admin");
             } else if(role === UserType.SHOP){
-                router.push("/shop");
+                router.push("/shops");
             } else if ( role === UserType.DELIVERY ) {
                 router.push("/delivery");
             }
