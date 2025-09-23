@@ -65,7 +65,7 @@ const ShopDashboardPage = () => {
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="logout-btn">
+                            <a href="/" className="logout-btn">
                                 Logout
                             </a>
                         </li>

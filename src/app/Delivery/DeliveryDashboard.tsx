@@ -1,6 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import './DeliveryDashboard.css';
+import {authService} from '@/app/api/authService';
+import {useRouter} from 'next/navigation';
 
 // Mock data to simulate fetching from a backend API.
 // In a real application, this data would come from an API call.
@@ -31,6 +33,7 @@ const DeliveryDash = () => {
   const [assignedDeliveries, setAssignedDeliveries] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({});
+  const router = useRouter();
 
   // Function to handle the "Accept Order" action.
   const handleAcceptOrder = (order) => {
@@ -79,7 +82,11 @@ const DeliveryDash = () => {
       case 'Customer Ratings':
         return <div className="p-8 text-center text-gray-500 text-lg">Customer Ratings Content (Placeholder)</div>;
       default:
-        return <DeliveryDashboardContent />;
+        return <DeliveryDashboardContent
+            availableOrders={availableOrders}
+            assignedDeliveries={assignedDeliveries}
+            onAcceptOrder={handleAcceptOrder}
+            onMarkDelivered={handleMarkDelivered}/>;
     }
   };
 
@@ -132,6 +139,13 @@ const ConfirmationModal = ({ title, message, onConfirm, onCancel }) => (
 
 // Component for the side navigation panel.
 const SidePanel = ({ activePage, setActivePage }) => {
+
+    const router = useRouter();
+  const handleLogout = () => {
+    authService.logout().then(r => {
+      router.push('/');
+    }).catch(ra=>{router.push('/')});
+  };
   const navItems = [
     'Dashboard',
     'Delivery History',
@@ -154,7 +168,7 @@ const SidePanel = ({ activePage, setActivePage }) => {
         ))}
         <li className="nav-item">
           <button
-            onClick={() => setActivePage('Logout')}
+            onClick={() => handleLogout()}
             className="logout-btn"
           >
             Logout
