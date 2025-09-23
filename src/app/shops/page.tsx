@@ -1,4 +1,4 @@
-import ShopDashboardPage from '@/app/shop/ShopDashboard';
+import ShopDashboardPage from '@/app/shops/ShopDashboard';
 
 export default function ShopsWindow( ){
     return(
