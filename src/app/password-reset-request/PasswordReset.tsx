@@ -54,6 +54,8 @@ export default function PasswordReset({token, email}:{token: string, email: stri
               router.push("/admin");
             } else if ( role === UserType.SHOP ) {
                 router.push("/shops");
+            } else if( role === UserType.DELIVERY ) {
+                router.push("/delivery");
             }
           } else {
             handleErrorMessage("Invalid login.");
